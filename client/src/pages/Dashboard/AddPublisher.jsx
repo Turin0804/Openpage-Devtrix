@@ -13,7 +13,20 @@ const AddPublisher = () => {
         <div className="container mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">Add Publisher</h1>
 
+                <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                        Website URL
+                    </label>
+                    <input
+                        type="url"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
+                        placeholder="Website URL"
+                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                    />
+                </div>
 
+            
         </div>
     );
 };
