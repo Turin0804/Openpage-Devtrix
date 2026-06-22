@@ -8,10 +8,12 @@ const AddPublisher = () => {
     const [logo, setLogo] = useState(null);
     const [website, setWebsite] = useState("");
     const axiosSecure = useAxiosSecure();
-         //sahana
+
     return (
-        <div>
-            <h1>Add Publisher</h1>
+        <div className="container mx-auto p-4">
+            <h1 className="text-2xl font-bold mb-4">Add Publisher</h1>
+
+
         </div>
     );
 };
