@@ -14,7 +14,7 @@ const Profile = () => {
     return (
         <>
             <Helmet>
-                <title>{user?.displayName} | Openpage</title>
+                <title>{user?.displayName} | InsightArc</title>
             </Helmet>
 
             <Container>
