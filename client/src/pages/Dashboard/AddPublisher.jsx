@@ -1,34 +1,90 @@
-import { useState } from "react";
-import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { uploadImage } from "../../api/utils";
+import LoadingSpinner from "../../components/common/LoadingSpinner";
+import UserDataRow from "../../components/UserDataRow";
 
-const AddPublisher = () => {
-    const [publisherName, setPublisherName] = useState("");
-    const [logo, setLogo] = useState(null);
-    const [website, setWebsite] = useState("");
+const AllUsers = () => {
+    const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const {
+        data: users = [],
+        isLoading,
+        refetch,
+    } = useQuery({
+        // [] is the initial value of users
+        queryKey: ["users", user?.email],
+        queryFn: async () => {
+            const { data } = await axiosSecure(`/all-users/${user?.email}`);
+            return data;
+        },
+    });
+    // console.log(users);
+
+    if (isLoading) return <LoadingSpinner />;
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Add Publisher</h1>
+        <>
+            <div className="container mx-auto px-4 sm:px-8">
+                <Helmet>
+                    <title>All Users | Dashboard | InsightArc</title>
+                </Helmet>
 
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                        Website URL
-                    </label>
-                    <input
-                        type="url"
-                        value={website}
-                        onChange={(e) => setWebsite(e.target.value)}
-                        placeholder="Website URL"
-                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-                    />
+                <div className="py-8">
+                    <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                        <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                            <table className="min-w-full leading-normal">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            scope="col"
+                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                                        >
+                                            Photo
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                                        >
+                                            Name
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                                        >
+                                            Email
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                                        >
+                                            Role
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                                        >
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {users.map((userData) => (
+                                        <UserDataRow
+                                            key={userData?._id}
+                                            userData={userData}
+                                            refetch={refetch}
+                                        />
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-
-            
-        </div>
+            </div>
+        </>
     );
 };
 
-export default AddPublisher;
+export default AllUsers;
