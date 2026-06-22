@@ -8,3 +8,16 @@ import { saveUser } from "../../api/utils";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
 import Navbar from "../../components/common/Navbar";
 import { useState } from "react";
+const Login = () => {
+    const { signIn, signInWithGoogle, loading, user } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || "/";
+    const [showPassword, setShowPassword] = useState(false);
+
+    if (loading) return <LoadingSpinner />;
+    if (user) return <Navigate to={from} replace={true} />;
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
