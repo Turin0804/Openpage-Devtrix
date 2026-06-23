@@ -39,7 +39,7 @@ const Publishers = () => {
                                 />
                             </div>
                             <div className="p-4">
-                                <h3 className="text-white font-semibold text-sm truncate">{publisher.publisherName}</h3>
+                                <h3 className="text-white font-semibold text-sm truncate">{publisher?.publisherName || 'Publisher'}</h3>
                                 {publisher.description && (
                                     <p className="text-gray-500 text-xs mt-1 line-clamp-2">{publisher.description}</p>
                                 )}
