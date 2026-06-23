@@ -94,3 +94,11 @@ app.listen(port, () => {
             const users = await usersCollection.find(query).toArray();
             res.send(users);
         });
+
+           // Get user data by email
+        app.get("/users/:email", async (req, res) => {
+            const email = req.params.email;
+            const query = { email };
+            const user = await usersCollection.findOne(query);
+            res.send(user);
+        });
