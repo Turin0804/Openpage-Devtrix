@@ -67,3 +67,23 @@ app.listen(port, () => {
             const users = await usersCollection.find().toArray();
             res.send(users);
         });
+
+          // Count all users, normal users, and premium users
+        app.get("/users-stat", async (req, res) => {
+            try {
+                const totalUsers = await usersCollection.countDocuments();
+                const premiumUsers = await usersCollection.countDocuments({
+                    userHasSubscription: true,
+                });
+                const normalUsers = totalUsers - premiumUsers;
+
+                res.send({
+                    totalUsers,
+                    normalUsers,
+                    premiumUsers,
+                });
+            } catch (error) {
+                console.error("Error counting users:", error);
+                res.status(500).send("Error counting users");
+            }
+        });
