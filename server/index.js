@@ -152,3 +152,19 @@ app.listen(port, () => {
             });
             res.send(result);
         });
+
+        
+        // // Update urrent user data
+        // app.patch("/users/me", verifyToken, async (req, res) => {
+        //     const email = req.user;
+        //     const query = { email };
+        //     const update = { $set: req.body };
+        //     const options = { returnOriginal: false };
+        //     const result = await usersCollection.findOneAndUpdate(
+        //         query,
+        //         update,
+        //         options
+        //     );
+        //     res.send(result.value);
+        // });
+
