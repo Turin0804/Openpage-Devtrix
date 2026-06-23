@@ -426,6 +426,33 @@ async function run() {
             res.send(subscription);
         });
 
+        // Add a subscription
+        app.post("/update-subscription", verifyToken, async (req, res) => {
+            const { userId, subscriptionPeriod } = req.body;
+            console.log(userId, subscriptionPeriod);
+
+            try {
+                const filter = { _id: new ObjectId(userId) };
+                const updateDoc = {
+                    $set: {
+                        userHasSubscription: true,
+                        premiumTaken: subscriptionPeriod,
+                    },
+                };
+
+                const result = await usersCollection.updateOne(
+                    filter,
+                    updateDoc
+                );
+                console.log(
+                    `Successfully updated the document with the _id: ${result}`
+                );
+                res.send(result);
+            } catch (error) {
+                console.error("Error updating subscription:", error);
+                res.status(500).send("Error updating subscription");
+            }
+        });
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
