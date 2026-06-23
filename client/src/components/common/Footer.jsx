@@ -17,25 +17,25 @@ const Footer = () => {
                     <div className="flex space-x-4">
                         <Link
                             to="/"
-                            className="text-gray-500 hover:text-indigo-600"
+                            className="text-gray-500 hover:text-orange-600"
                         >
                             Home
                         </Link>
                         <Link
                             to="/articles"
-                            className="text-gray-500 hover:text-indigo-600"
+                            className="text-gray-500 hover:text-orange-600"
                         >
                             All Articles
                         </Link>
                         <Link
                             to="/subscription"
-                            className="text-gray-500 hover:text-indigo-600"
+                            className="text-gray-500 hover:text-orange-600"
                         >
                             Subscription
                         </Link>
                         <Link
                             to="#"
-                            className="text-gray-500 hover:text-indigo-600"
+                            className="text-gray-500 hover:text-orange-600"
                         >
                             Contact
                         </Link>

@@ -6,8 +6,8 @@ const Button = ({ label, onClick, disabled, outline, small, icon: Icon }) => {
             disabled={disabled}
             onClick={onClick}
             className={`relative disabled:opacity-70 disabled:cursor-not-allowed rounded-lg hover:opacity-80 transition px-4 w-full ${
-                outline ? "bg-white" : "bg-indigo-600"
-            } ${outline ? "border-black" : "border-indibg-indigo-600"} ${
+                outline ? "bg-white" : "bg-orange-600"
+            } ${outline ? "border-black" : "border-indibg-orange-600"} ${
                 outline ? "text-black" : "text-white"
             } ${small ? "text-sm" : "text-md"} ${small ? "py-1" : "py-3"} ${
                 small ? "font-light" : "font-semibold"

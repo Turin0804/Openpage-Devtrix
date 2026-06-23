@@ -33,7 +33,7 @@ const Plans = () => {
                                 className="card border border-gray-300 bg-white text-gray-800 shadow-md rounded-lg"
                             >
                                 <div className="card-body p-6">
-                                    <h3 className="card-title text-indigo-600 text-2xl font-semibold">
+                                    <h3 className="card-title text-orange-600 text-2xl font-semibold">
                                         {plan.subscriptionPeriod}
                                     </h3>
                                     <p className="text-lg font-bold mt-2">
@@ -47,7 +47,7 @@ const Plans = () => {
                                     <div className="card-actions mt-6">
                                         <Link
                                             to="/subscription"
-                                            className="btn btn-primary w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700"
+                                            className="btn btn-primary w-full bg-orange-600 text-white py-2 rounded-md hover:bg-orange-700"
                                         >
                                             Subscribe
                                         </Link>

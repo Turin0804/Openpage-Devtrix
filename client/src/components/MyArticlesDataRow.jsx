@@ -84,7 +84,7 @@ const MyArticlesDataRow = ({ articles, article, refetch }) => {
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <Link
                     to={`/articles/${_id}`}
-                    className="btn text-indigo-600 hover:text-indigo-900"
+                    className="btn text-orange-600 hover:text-orange-900"
                 >
                     Details
                 </Link>

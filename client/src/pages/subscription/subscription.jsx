@@ -35,10 +35,10 @@ const Subscription = () => {
     return (
         <>
             <Helmet>
-                <title>Subscription | InsightArc</title>
+                <title>Subscription | OpenPage</title>
             </Helmet>
 
-            <div className="relative w-full h-64 bg-indigo-600 flex items-center justify-center">
+            <div className="relative w-full h-64 bg-orange-600 flex items-center justify-center">
                 <h1 className="text-5xl font-bold text-white">
                     Subscribe Now! ✨🚀
                 </h1>
@@ -89,7 +89,7 @@ const Subscription = () => {
                     <button
                         onClick={handleSubscription}
                         disabled={!subscriptionPeriod}
-                        className="w-full mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:bg-gray-400"
+                        className="w-full mt-4 px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 disabled:bg-gray-400"
                     >
                         Subscribe
                     </button>
