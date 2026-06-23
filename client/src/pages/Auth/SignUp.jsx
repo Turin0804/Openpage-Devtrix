@@ -82,7 +82,22 @@ const SignUp = () => {
             toast.error(err?.message);
         }
     };
- 
+    
+    // Handle Google Signin
+    const handleGoogleSignIn = async () => {
+        try {
+            //User Registration using google
+            const data = await signInWithGoogle();
+            // Save user in database
+            await saveUser(data?.user);
+
+            toast.success("Signup Successful");
+            navigate("/");
+        } catch (err) {
+            console.log(err);
+            toast.error(err?.message);
+        }
+    };
 
 return (
         <>
