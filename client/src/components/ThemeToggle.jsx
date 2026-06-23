@@ -18,7 +18,7 @@ const ThemeToggle = () => {
     return (
         <button
             onClick={toggleTheme}
-            className="bg-indigo-500 text-white p-2 rounded-full flex items-center gap-2"
+            className="bg-orange-500 text-white p-2 rounded-full flex items-center gap-2"
         >
             {theme === "light" ? <IoMoon size={20} /> : <IoSunny size={20} />}
         </button>

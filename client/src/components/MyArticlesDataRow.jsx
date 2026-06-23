@@ -84,18 +84,17 @@ const MyArticlesDataRow = ({ articles, article, refetch }) => {
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <Link
                     to={`/articles/${_id}`}
-                    className="btn text-indigo-600 hover:text-indigo-900"
+                    className="btn text-orange-600 hover:text-orange-900"
                 >
                     Details
                 </Link>
             </td>
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <p
-                    className={`whitespace-no-wrap ${
-                        status === "approved"
+                    className={`whitespace-no-wrap ${status === "approved"
                             ? "text-green-600"
                             : "text-orange-600"
-                    }`}
+                        }`}
                 >
                     {status}
                 </p>
@@ -114,7 +113,7 @@ const MyArticlesDataRow = ({ articles, article, refetch }) => {
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <button
                     onClick={openEditModal}
-                    className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-indigo-900 leading-tight"
+                    className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-orange-900 leading-tight"
                 >
                     <span className="absolute cursor-pointer inset-0 bg-blue-200 opacity-50 rounded-full"></span>
                     <span className="relative cursor-pointer">Update</span>
@@ -143,7 +142,7 @@ const MyArticlesDataRow = ({ articles, article, refetch }) => {
                             />
                             <button
                                 onClick={handleUpdate}
-                                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 mr-2"
+                                className="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 mr-2"
                             >
                                 Save
                             </button>
@@ -169,7 +168,7 @@ const MyArticlesDataRow = ({ articles, article, refetch }) => {
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <button
                     onClick={openModal}
-                    className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-indigo-900 leading-tight"
+                    className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-orange-900 leading-tight"
                 >
                     <span className="absolute cursor-pointer inset-0 bg-red-200 opacity-50 rounded-full"></span>
                     <span className="relative cursor-pointer">Delete</span>

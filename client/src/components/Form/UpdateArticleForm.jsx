@@ -42,7 +42,7 @@ const UpdateArticleForm = ({ article, tags, setTags }) => {
                                 Title
                             </label>
                             <input
-                                className="w-full px-4 py-3 text-gray-800 border border-indigo-300 focus:outline-indigo-500 rounded-md bg-white"
+                                className="w-full px-4 py-3 text-gray-800 border border-orange-300 focus:outline-orange-500 rounded-md bg-white"
                                 name="title"
                                 id="title"
                                 type="text"
@@ -65,7 +65,7 @@ const UpdateArticleForm = ({ article, tags, setTags }) => {
                                 name="description"
                                 defaultValue={description}
                                 placeholder="Write article description here..."
-                                className="block rounded-md focus:indigo-300 w-full h-32 px-4 py-3 text-gray-800  border border-indigo-300 bg-white focus:outline-indigo-500 "
+                                className="block rounded-md focus:orange-300 w-full h-32 px-4 py-3 text-gray-800  border border-orange-300 bg-white focus:outline-orange-500 "
                             ></textarea>
                         </div>
                     </div>
@@ -81,7 +81,7 @@ const UpdateArticleForm = ({ article, tags, setTags }) => {
                             <select
                                 required
                                 onChange={(e) => e.target.value}
-                                className="w-full px-4 py-3 border-indigo-300 focus:outline-indigo-500 rounded-md bg-white"
+                                className="w-full px-4 py-3 border-orange-300 focus:outline-orange-500 rounded-md bg-white"
                                 name="publisher"
                             >
                                 {publishers.map((publisher) => (
@@ -116,7 +116,7 @@ const UpdateArticleForm = ({ article, tags, setTags }) => {
                                                 });
                                             }}
                                         />
-                                        <div className="bg-indigo-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-indigo-500">
+                                        <div className="bg-orange-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-orange-500">
                                             {imageUpload?.image?.name ||
                                                 "Choose File"}
                                         </div>
@@ -142,7 +142,7 @@ const UpdateArticleForm = ({ article, tags, setTags }) => {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-indigo-500 "
+                            className="w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-orange-500 "
                         >
                             Update Article
                         </button>

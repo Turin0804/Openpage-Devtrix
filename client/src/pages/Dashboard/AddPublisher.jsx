@@ -81,7 +81,7 @@ const AddPublisher = () => {
                 </div>
                 <button
                     type="submit"
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-400"
+                    className="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-400"
                 >
                     Add Publisher
                 </button>

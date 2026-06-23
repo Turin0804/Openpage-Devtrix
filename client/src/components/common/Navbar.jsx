@@ -103,11 +103,11 @@ const Navbar = () => {
                 <div className="flex flex-row  items-center justify-between gap-3 md:gap-0">
                     {/* Logo */}
                     <div>
-                        <Link to="/" className="font-grenze text-3xl font-bold">
+                        <Link to="/" className="font-rye text-3xl font-bold">
                             OpenPage
                         </Link>
                         <p className="text-xs">
-                            Your Arc of Knowledge and Insight
+                            Create. Write. Share.
                         </p>
                     </div>
 

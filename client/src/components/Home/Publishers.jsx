@@ -43,7 +43,7 @@ const Publishers = () => {
                                         href={publisher.website}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-indigo-600 hover:text-indigo-800"
+                                        className="text-orange-600 hover:text-orange-800"
                                     >
                                         Visit Website
                                     </a>
