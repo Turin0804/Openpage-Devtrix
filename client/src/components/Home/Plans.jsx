@@ -1,6 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 import Container from "../common/Container";
 
+const plans = [
+    {
+        subscriptionPeriod: "1 minute",
+        amount: 1,
+    },
+    {
+        subscriptionPeriod: "5 days",
+        amount: 10,
+    },
+    {
+        subscriptionPeriod: "10 days",
+        amount: 18,
+    },
+];
 
 const Plans = () => {
     const navigate = useNavigate();
