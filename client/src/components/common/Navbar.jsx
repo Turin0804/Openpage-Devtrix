@@ -1,4 +1,3 @@
-// import Container from "../Container";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
@@ -22,161 +21,169 @@ const Navbar = () => {
             return response.data;
         },
     });
-    // console.log(userData);
     const { userHasSubscription, role } = userData || {};
-    // console.log("userHasSubscription", userHasSubscription);
-    // console.log("role", role);
     if (isLoading) return <LoadingSpinner />;
 
     const links = (
         <>
             <NavLink
                 to="/"
+                onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
-                    `tab hover:underline ${isActive ? "text-primary" : ""}`
+                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                        isActive
+                            ? "text-orange-400 bg-orange-500/10"
+                            : "text-gray-300 hover:text-white hover:bg-white/5"
+                    }`
                 }
             >
                 Home
             </NavLink>
             <NavLink
                 to="/add-article"
+                onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
-                    `tab hover:underline ${isActive ? "text-primary" : ""}`
+                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                        isActive
+                            ? "text-orange-400 bg-orange-500/10"
+                            : "text-gray-300 hover:text-white hover:bg-white/5"
+                    }`
                 }
             >
                 Add Article
             </NavLink>
             <NavLink
                 to="/articles"
+                onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
-                    `tab hover:underline ${isActive ? "text-primary" : ""}`
+                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                        isActive
+                            ? "text-orange-400 bg-orange-500/10"
+                            : "text-gray-300 hover:text-white hover:bg-white/5"
+                    }`
                 }
             >
                 Articles
             </NavLink>
             <NavLink
                 to="/subscription"
+                onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
-                    `tab hover:underline ${isActive ? "text-primary" : ""}`
+                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                        isActive
+                            ? "text-orange-400 bg-orange-500/10"
+                            : "text-gray-300 hover:text-white hover:bg-white/5"
+                    }`
                 }
             >
                 Subscription
             </NavLink>
             <NavLink
                 to="/my-articles"
+                onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
-                    `tab hover:underline ${isActive ? "text-primary" : ""}`
+                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                        isActive
+                            ? "text-orange-400 bg-orange-500/10"
+                            : "text-gray-300 hover:text-white hover:bg-white/5"
+                    }`
                 }
             >
                 My Articles
             </NavLink>
-            {userHasSubscription ? (
+            {userHasSubscription && (
                 <NavLink
                     to="/premium-articles"
+                    onClick={() => setIsOpen(false)}
                     className={({ isActive }) =>
-                        `tab hover:underline ${isActive ? "text-primary" : ""}`
+                        `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            isActive
+                                ? "text-amber-400 bg-amber-500/10"
+                                : "text-amber-300 hover:text-amber-200 hover:bg-amber-500/5"
+                        }`
                     }
                 >
-                    Premium Articles
+                    ★ Premium
                 </NavLink>
-            ) : (
-                ""
             )}
-            {role === "admin" ? (
+            {role === "admin" && (
                 <NavLink
                     to="/dashboard"
+                    onClick={() => setIsOpen(false)}
                     className={({ isActive }) =>
-                        `tab hover:underline ${isActive ? "text-primary" : ""}`
+                        `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            isActive
+                                ? "text-orange-400 bg-orange-500/10"
+                                : "text-gray-300 hover:text-white hover:bg-white/5"
+                        }`
                     }
                 >
                     Dashboard
                 </NavLink>
-            ) : (
-                ""
             )}
         </>
     );
 
     return (
-        <div className="sticky top-0 z-50 backdrop-blur-md bg-white/45 border-b-2">
-            <div className="max-w-screen-xl mx-auto px-4 lg:px-0 py-4">
-                <div className="flex flex-row  items-center justify-between gap-3 md:gap-0">
+        <div className="sticky top-0 z-50 bg-zinc-950/90 backdrop-blur-xl border-b border-white/8">
+            <div className="max-w-screen-xl mx-auto px-4 lg:px-6 py-3">
+                <div className="flex flex-row items-center justify-between gap-3">
                     {/* Logo */}
-                    <div>
-                        <Link to="/" className="font-rye text-3xl font-bold">
+                    <Link to="/" className="flex flex-col leading-tight group">
+                        <span className="font-rye text-2xl font-bold text-white group-hover:text-orange-400 transition-colors duration-200">
                             OpenPage
-                        </Link>
-                        <p className="text-xs">
-                            Create. Write. Share.
-                        </p>
-                    </div>
+                        </span>
+                        <span className="text-[10px] text-gray-500 tracking-widest uppercase">
+                            Create · Write · Share
+                        </span>
+                    </Link>
 
-                    {/* <div className="hidden md:flex flex-row gap-3 font-semibold">{links}</div> */}
-                    {/* Dropdown Menu */}
-                    <div className="flex gap-2 items-center relative">
-                        {/* Theme Toggle */}
+                    {/* Right side */}
+                    <div className="flex gap-3 items-center relative">
                         <ThemeToggle />
 
-                        <div className="flex flex-row items-center gap-3">
-                            {/* Dropdown btn */}
-                            <div
-                                onClick={() => setIsOpen(!isOpen)}
-                                className="p-2 md:py-1 md:px-2 border border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
-                            >
-                                <AiOutlineMenu />
-                                <div className="">
-                                    {/* Avatar */}
-                                    <Link to="/profile">
-                                        <img
-                                            className="w-10 h-10 object-cover rounded-full"
-                                            referrerPolicy="no-referrer"
-                                            src={
-                                                user && user.photoURL
-                                                    ? user.photoURL
-                                                    : avatarImg
-                                            }
-                                            alt="profile"
-                                            height="30"
-                                            width="30"
-                                        />
-                                    </Link>
-                                </div>
-                            </div>
+                        {/* Avatar + Hamburger trigger */}
+                        <div
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="flex flex-row items-center gap-2.5 px-3 py-1.5 border border-white/10 rounded-full cursor-pointer hover:border-orange-500/50 hover:bg-white/5 transition-all duration-200"
+                        >
+                            <AiOutlineMenu className="text-gray-400 text-sm" />
+                            <Link to="/profile" onClick={(e) => e.stopPropagation()}>
+                                <img
+                                    className="w-8 h-8 object-cover rounded-full ring-2 ring-white/10 hover:ring-orange-500/50 transition-all duration-200"
+                                    referrerPolicy="no-referrer"
+                                    src={user && user.photoURL ? user.photoURL : avatarImg}
+                                    alt="profile"
+                                />
+                            </Link>
                         </div>
+
+                        {/* Dropdown */}
                         {isOpen && (
-                            <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] overflow-hidden bg-white/80 right-0 top-12 text-sm z-10">
-                                <div className="relative flex flex-col cursor-pointer">
-                                    <div className="flex flex-col space-y-3 font-semibold">
-                                        {links}
-                                    </div>
-
-                                    {/* <Link
-                                        to="/"
-                                        className="block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold"
-                                    >
-                                        Home
-                                    </Link> */}
-
+                            <div className="absolute right-0 top-14 w-56 bg-zinc-900 border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden z-50 animate-[fadeInDown_0.15s_ease-out]">
+                                <div className="p-2 flex flex-col gap-0.5">
+                                    {links}
+                                    <div className="my-1 h-px bg-white/10" />
                                     {user ? (
-                                        <>
-                                            <button
-                                                onClick={logOut}
-                                                className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
-                                            >
-                                                Logout
-                                            </button>
-                                        </>
+                                        <button
+                                            onClick={() => { logOut(); setIsOpen(false); }}
+                                            className="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 cursor-pointer"
+                                        >
+                                            Logout
+                                        </button>
                                     ) : (
                                         <>
                                             <Link
                                                 to="/login"
-                                                className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                                                onClick={() => setIsOpen(false)}
+                                                className="block px-4 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all duration-200"
                                             >
                                                 Login
                                             </Link>
                                             <Link
                                                 to="/signup"
-                                                className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                                                onClick={() => setIsOpen(false)}
+                                                className="block px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-500 transition-all duration-200 text-center mt-1"
                                             >
                                                 Sign Up
                                             </Link>
