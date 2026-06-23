@@ -3,7 +3,31 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const Newsletter = () => {
-    
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!name || !email) {
+            toast.error("Please fill in all fields");
+            return;
+        }
+
+        try {
+            // await axios.post(`${import.meta.env.VITE_API_URL}/newsletter`, {
+            //     name,
+            //     email,
+            // });
+            toast.success("Subscribed successfully!");
+            setName("");
+            setEmail("");
+        } catch (error) {
+            console.error("Error subscribing to newsletter:", error);
+            toast.error("Failed to subscribe");
+        }
+    };
+
     return (
         <div className="bg-orange-50 py-12">
             <div className="container mx-auto px-4">
