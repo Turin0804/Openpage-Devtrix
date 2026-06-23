@@ -16,7 +16,7 @@ const Homepage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const timer = setTimeout(() => setShowModal(true), 10000);
+        const timer = setTimeout(() => setShowModal(true), 30000); // Show modal after 30 seconds
         return () => clearTimeout(timer);
     }, []);
 
