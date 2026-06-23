@@ -104,7 +104,7 @@ const Navbar = () => {
                     {/* Logo */}
                     <div>
                         <Link to="/" className="font-grenze text-3xl font-bold">
-                            InsightArc
+                            OpenPage
                         </Link>
                         <p className="text-xs">
                             Your Arc of Knowledge and Insight

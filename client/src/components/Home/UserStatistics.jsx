@@ -43,7 +43,7 @@ const UserStatistics = () => {
                     <CountUp
                         end={premiumUsers}
                         duration={2.5}
-                        className="text-4xl font-bold text-orange-500"
+                        className="text-4xl font-bold text-indigo-500"
                     />
                 </div>
             </div>

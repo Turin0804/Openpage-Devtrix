@@ -21,7 +21,7 @@ const Podcasts = () => {
     ];
 
     return (
-        <div className="bg-orange-50 py-12">
+        <div className="bg-indigo-50 py-12">
             <div className="container mx-auto px-4">
                 <h2 className="text-3xl font-bold text-center mb-2">
                     Interviews & Podcasts
@@ -45,7 +45,7 @@ const Podcasts = () => {
                                 href={podcast.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-orange-600 hover:text-orange-800"
+                                className="text-indigo-600 hover:text-indigo-800"
                             >
                                 Listen Now
                             </a>

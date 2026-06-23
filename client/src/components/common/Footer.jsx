@@ -7,10 +7,10 @@ const Footer = () => {
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <div className="mb-4 md:mb-0">
                         <h1 className="text-3xl text-black font-grenze font-bold">
-                            InsightArc
+                            OpenPage
                         </h1>
                         <p className="text-sm">
-                            &copy; {new Date().getFullYear()} InsightArc. All
+                            &copy; {new Date().getFullYear()} OpenPage. All
                             rights reserved.
                         </p>
                     </div>
