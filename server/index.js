@@ -87,3 +87,10 @@ app.listen(port, () => {
                 res.status(500).send("Error counting users");
             }
         });
+            // Get all users data except the current user
+        app.get("/all-users/:email", verifyToken, async (req, res) => {
+            const email = req.params.email;
+            const query = { email: { $ne: email } };
+            const users = await usersCollection.find(query).toArray();
+            res.send(users);
+        });
