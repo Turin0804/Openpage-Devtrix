@@ -1,5 +1,25 @@
 const Podcasts = () => {
-    
+    const podcasts = [
+        {
+            id: 1,
+            title: "Tech Innovations",
+            description: "Exploring the latest in technology and innovation.",
+            link: "https://youtu.be/y8NtMZ7VGmU?si=0WY9jOLheWqLGstB",
+        },
+        {
+            id: 2,
+            title: "Business Insights",
+            description: "In-depth discussions with industry leaders.",
+            link: "https://youtu.be/bNpx7gpSqbY?si=H8y1swCjyTASCuvP",
+        },
+        {
+            id: 3,
+            title: "Political Analysis",
+            description: "Analyzing the latest political developments.",
+            link: "https://youtu.be/yqc9zX04DXs?si=0OsfBEhN5FI05yHo",
+        },
+    ];
+
     return (
         <div className="bg-orange-50 py-12">
             <div className="container mx-auto px-4">
