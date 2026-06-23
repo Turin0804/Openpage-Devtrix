@@ -405,6 +405,26 @@ async function run() {
             res.send(result);
         });
 
+        /***
+         *
+         * Subscriptions API
+         *
+         */
+        // Get all subscriptions
+        app.get("/subscriptions", async (req, res) => {
+            const subscriptions = await subscriptionsCollection
+                .find()
+                .toArray();
+            res.send(subscriptions);
+        });
+
+        // Get a subscription by id
+        app.get("/subscriptions/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const subscription = await subscriptionsCollection.findOne(query);
+            res.send(subscription);
+        });
 
 
         // Send a ping to confirm a successful connection
