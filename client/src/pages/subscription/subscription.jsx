@@ -36,7 +36,7 @@ const Subscription = () => {
             {/* Banner */}
             <div className="relative w-full h-64 bg-orange-600 flex items-center justify-center">
                 <h1 className="text-5xl font-bold text-white">
-                    Subscribe Now! ✨🚀
+                    Subscribe Now! ✨
                 </h1>
             </div>
             <Container>
