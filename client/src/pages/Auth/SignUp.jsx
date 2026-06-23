@@ -19,6 +19,25 @@ const SignUp = () => {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+    const validatePassword = (password) => {
+        const errors = {};
+        if (password.length < 6) {
+            errors.length = "Password must be at least 6 characters long.";
+        }
+        if (!/[A-Z]/.test(password)) {
+            errors.capital =
+                "Password must contain at least one capital letter.";
+        }
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            errors.special =
+                "Password must contain at least one special character.";
+        }
+        if (!/[0-9]/.test(password)) {
+            errors.numeric =
+                "Password must contain at least one numeric character.";
+        }
+        return errors;
+    };
 
 return (
         <>
