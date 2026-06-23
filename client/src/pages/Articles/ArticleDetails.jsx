@@ -5,119 +5,109 @@ import axios from "axios";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
 import { useEffect } from "react";
 import Container from "../../components/common/Container";
-import Heading from "../../components/common/Heading";
+import { FiEye, FiStar } from "react-icons/fi";
 
 const ArticleDetails = () => {
     const { id } = useParams();
-    // console.log(id);
     const queryClient = useQueryClient();
 
     const { data: article = {}, isLoading } = useQuery({
         queryKey: ["article", id],
         queryFn: async () => {
-            const { data } = await axios(
-                `${import.meta.env.VITE_API_URL}/articles/${id}`
-            );
+            const { data } = await axios(`${import.meta.env.VITE_API_URL}/articles/${id}`);
             return data;
         },
     });
-    // console.log(article);
 
     useEffect(() => {
         const updateViewCount = async () => {
             try {
-                await axios.patch(
-                    `${import.meta.env.VITE_API_URL}/articles/${id}/view`
-                );
+                await axios.patch(`${import.meta.env.VITE_API_URL}/articles/${id}/view`);
                 queryClient.invalidateQueries(["article", id]);
             } catch (err) {
                 console.log("Failed to update view count", err);
             }
         };
-
-        if (id) {
-            updateViewCount();
-        }
+        if (id) updateViewCount();
     }, [id, queryClient]);
 
     if (isLoading) return <LoadingSpinner />;
 
-    const {
-        title,
-        image,
-        publisher,
-        tags,
-        description,
-        viewCount,
-        isPremium,
-        author,
-    } = article || {};
-    // console.log(article);
-    // console.log(publisher.publisherName);
+    const { title, image, publisher, tags, description, viewCount, isPremium, author } = article || {};
 
     return (
-        <>
+        <div className="bg-zinc-950 min-h-screen">
             <Helmet>
-                <title>{title} | OpenPage</title>
+                <title>{title || "Article"} | OpenPage</title>
             </Helmet>
 
+            {/* Hero image */}
+            {image && (
+                <div className="w-full h-56 sm:h-80 lg:h-96 overflow-hidden relative">
+                    <img className="w-full h-full object-cover" src={image} alt={title} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+                </div>
+            )}
+
             <Container>
-                <div className="w-full gap-12">
-                    <div className="flex justify-between items-center">
-                        <Heading
-                            title={title}
-                            subtitle={`Publisher: ${publisher.publisherName}`}
-                        />
-                        <p>Views: {viewCount}</p>
-                    </div>
+                <div className="max-w-3xl mx-auto py-8 sm:py-12">
+                    {/* Premium badge */}
                     {isPremium && (
-                        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 my-4">
-                            <p className="font-semibold">Premium Article</p>
-                            <p>
-                                This is a premium article. You need to subscribe
-                                to view this article.
-                            </p>
+                        <div className="flex items-center gap-2 mb-5 px-4 py-2.5 bg-amber-500/10 border border-amber-500/20 rounded-xl w-fit">
+                            <FiStar size={14} className="text-amber-400" />
+                            <p className="text-amber-300 text-sm font-medium">Premium Article</p>
                         </div>
                     )}
-                    {/* Image */}
-                    <div className="w-full h-72 overflow-hidden rounded-md my-8">
-                        <img
-                            className="object-cover w-full h-full"
-                            src={image}
-                            alt={title}
-                        />
+
+                    {/* Publisher */}
+                    {publisher?.publisherName && (
+                        <p className="text-orange-400 text-xs font-semibold uppercase tracking-widest mb-3">
+                            {publisher.publisherName}
+                        </p>
+                    )}
+
+                    {/* Title */}
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mb-4">
+                        {title}
+                    </h1>
+
+                    {/* Meta row */}
+                    <div className="flex flex-wrap items-center gap-4 mb-8 pb-6 border-b border-white/[0.08]">
+                        {author && (
+                            <div className="flex items-center gap-2.5">
+                                <img
+                                    className="w-8 h-8 rounded-full ring-2 ring-white/10"
+                                    referrerPolicy="no-referrer"
+                                    src={author.image}
+                                    alt={author.name}
+                                />
+                                <span className="text-gray-300 text-sm font-medium">{author.name}</span>
+                            </div>
+                        )}
+                        <div className="flex items-center gap-1 text-gray-500 text-sm">
+                            <FiEye size={14} />
+                            <span>{viewCount || 0} views</span>
+                        </div>
                     </div>
 
-                    <div className="md:gap-10 flex-1">
-                        {/* article Info */}
-                        <p className="text-lg font-light text-neutral-500  custom-first-letter custom-first-line">
-                            {description}
-                        </p>
-                        <hr className="my-6" />
+                    {/* Body */}
+                    <p className="text-gray-300 text-base sm:text-lg leading-relaxed custom-first-letter">
+                        {description}
+                    </p>
 
-                        <div className="flex flex-row items-center gap-2">
-                            <h4 className="text-xl font-semibold ">
-                                Article Writter: {author?.name}
-                            </h4>
-                            <img
-                                className="rounded-full w-10 h-10"
-                                alt="Avatar"
-                                referrerPolicy="no-referrer"
-                                src={author?.image}
-                            />
-                        </div>
-                        <hr className="my-6" />
-                        <div className="font-semibold text-lg gap-4 text-neutral-500">
-                            {tags.map((tag, index) => (
-                                <span key={index} className="mr-2">
+                    {/* Tags */}
+                    {tags?.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mt-8 pt-6 border-t border-white/[0.08]">
+                            {tags.map((tag, i) => (
+                                <span key={i} className="px-3 py-1.5 rounded-full bg-zinc-800 border border-zinc-700 text-gray-400 text-xs font-medium">
                                     #{tag}
                                 </span>
                             ))}
                         </div>
-                    </div>
+                    )}
                 </div>
             </Container>
-        </>
+        </div>
     );
 };
 
