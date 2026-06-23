@@ -14,6 +14,7 @@ const corsOptions = {
     origin: [
         "http://localhost:5173",
         "http://localhost:5174",
+        "https://getopenpage.web.app",
     ],
     credentials: true,
     optionSuccessStatus: 200,
@@ -54,7 +55,7 @@ const client = new MongoClient(uri, {
 });
 async function run() {
     try {
-        const db = client.db("insightarc");
+        const db = client.db("insightArc");
         const usersCollection = db.collection("users");
         const articlesCollection = db.collection("articles");
         const publishersCollection = db.collection("publishers");
@@ -247,6 +248,21 @@ async function run() {
                 .toArray();
             res.send(articles);
         });
+
+        // app.get("/articles", async (req, res) => {
+        //     try {
+        //         const searchTerm = req.query.search || "";
+        //         const articles = await articlesCollection
+        //             .find({
+        //                 title: { $regex: searchTerm, $options: "i" },
+        //             })
+        //             .toArray();
+        //         res.send(articles);
+        //     } catch (error) {
+        //         console.error("Error fetching articles:", error);
+        //         res.status(500).send({ message: "Error fetching articles" });
+        //     }
+        // });
 
         // Get all Latest articles
         app.get("/latest-articles", async (req, res) => {
@@ -467,9 +483,9 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-    res.send("Welcome to openpage Server.....😊📰");
+    res.send("Welcome to Openpage Server.....😊📰");
 });
 
 app.listen(port, () => {
-    console.log(`openpage is running on port ${port}`);
+    console.log(`Openpage is running on port ${port}`);
 });
