@@ -95,11 +95,10 @@ const AllArticlesDataRow = ({ article, refetch }) => {
             </td>
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <p
-                    className={`whitespace-no-wrap ${
-                        status === "approved"
+                    className={`whitespace-no-wrap ${status === "approved"
                             ? "text-green-600"
                             : "text-orange-600"
-                    }`}
+                        }`}
                 >
                     {status}
                 </p>
@@ -112,7 +111,7 @@ const AllArticlesDataRow = ({ article, refetch }) => {
                     required
                     defaultValue={status}
                     onChange={(e) => handleStatusChange(e.target.value)}
-                    className="p-1 border-2 border-indigo-300 focus:outline-indigo-500 rounded-md text-gray-900 whitespace-no-wrap bg-white"
+                    className="p-1 border-2 border-orange-300 focus:outline-orange-500 rounded-md text-gray-900 whitespace-no-wrap bg-white"
                     name="category"
                 >
                     <option value="pending">Pending</option>
@@ -122,7 +121,7 @@ const AllArticlesDataRow = ({ article, refetch }) => {
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-indigo-900 leading-tight"
+                    className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-orange-900 leading-tight"
                 >
                     <span className="absolute cursor-pointer inset-0 bg-red-200 opacity-50 rounded-full"></span>
                     <span className="relative cursor-pointer">Decline</span>
@@ -130,12 +129,12 @@ const AllArticlesDataRow = ({ article, refetch }) => {
             </td>
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 {isPremium ? (
-                    <p className="text-indigo-600">Premium</p>
+                    <p className="text-orange-600">Premium</p>
                 ) : (
                     <>
                         <button
                             onClick={handleMakePremium}
-                            className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-indigo-900 leading-tight"
+                            className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-orange-900 leading-tight"
                         >
                             <span className="absolute cursor-pointer inset-0 bg-orange-200 opacity-50 rounded-full"></span>
                             <span className="relative cursor-pointer">
@@ -148,7 +147,7 @@ const AllArticlesDataRow = ({ article, refetch }) => {
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-indigo-900 leading-tight"
+                    className="relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-orange-900 leading-tight"
                 >
                     <span className="absolute cursor-pointer inset-0 bg-red-200 opacity-50 rounded-full"></span>
                     <span className="relative cursor-pointer">Delete</span>

@@ -29,7 +29,7 @@ const Newsletter = () => {
     };
 
     return (
-        <div className="bg-indigo-50 py-12">
+        <div className="bg-orange-50 py-12">
             <div className="container mx-auto px-4">
                 <h2 className="text-3xl font-bold text-center mb-6">
                     Subscribe to our Newsletter
@@ -69,7 +69,7 @@ const Newsletter = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                        className="w-full py-2 px-4 bg-orange-600 text-white rounded-md hover:bg-orange-700"
                     >
                         Subscribe
                     </button>

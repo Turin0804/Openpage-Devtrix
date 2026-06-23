@@ -18,7 +18,7 @@ const LatestArticles = () => {
     if (isLoading) return <LoadingSpinner />;
 
     return (
-        <div className="bg-indigo-50 mt-12">
+        <div className="bg-orange-50 mt-12">
             <Container>
                 <h2 className="text-3xl font-bold text-gray-800 text-center">
                     Latest Articles

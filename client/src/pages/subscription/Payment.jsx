@@ -64,7 +64,7 @@ const Payment = () => {
                             </h2>
                             <p className="mt-2 text-center text-sm text-gray-600">
                                 You have selected the{" "}
-                                <span className="text-indigo-500">
+                                <span className="text-orange-500">
                                     {subscriptionPeriod}
                                 </span>{" "}
                                 subscription period.
