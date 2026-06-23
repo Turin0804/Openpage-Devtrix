@@ -55,3 +55,15 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
     console.log(`Openpage is running on port ${port}`);
 });
+
+/**
+         *
+         * Users API
+         *
+         */
+
+        // Get all users data
+        app.get("/all-users", async (req, res) => {
+            const users = await usersCollection.find().toArray();
+            res.send(users);
+        });
