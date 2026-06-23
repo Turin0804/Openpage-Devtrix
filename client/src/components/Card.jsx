@@ -37,7 +37,7 @@ const Card = ({ article }) => {
                 />
                 <div className="absolute top-3 right-3 text-white">
                     {isPremium && (
-                        <p className="flex items-center gap-1 bg-orange-500 p-1 rounded">
+                        <p className="flex items-center gap-1 bg-primary-500 p-1 rounded">
                             <GiStarShuriken
                                 size={20}
                                 className="text-yellow-300"
