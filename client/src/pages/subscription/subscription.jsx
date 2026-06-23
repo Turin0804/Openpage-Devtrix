@@ -31,7 +31,7 @@ const Subscription = () => {
     return (
         <>
             <Helmet>
-                <title>Subscription | OpenPage</title>
+                <title>Subscription | Openpage</title>
             </Helmet>
             {/* Banner */}
             <div className="relative w-full h-64 bg-orange-600 flex items-center justify-center">
