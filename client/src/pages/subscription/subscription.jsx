@@ -1,18 +1,17 @@
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-
 import Container from "../../components/common/Container";
-import LoadingSpinner from "../../components/common/LoadingSpinner";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../components/common/LoadingSpinner";
+import { useState } from "react";
 
 const Subscription = () => {
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const [subscriptionPeriod, setSubscriptionPeriod] = useState("");
 
-    const { data: subscriptions = [], isLoading } = useQuery({
+    const { data: subscriptions, isLoading } = useQuery({
         queryKey: ["subscriptions"],
         queryFn: async () => {
             const response = await axiosSecure(
@@ -21,15 +20,12 @@ const Subscription = () => {
             return response.data;
         },
     });
-
-    if (isLoading) {
-        return <LoadingSpinner />;
-    }
+    // console.log(subscriptions);
+    if (isLoading) return <LoadingSpinner />;
 
     const handleSubscription = () => {
-        navigate("/payment", {
-            state: { subscriptionPeriod },
-        });
+        // Navigate to the payment page
+        navigate("/payment", { state: { subscriptionPeriod } });
     };
 
     return (
@@ -37,45 +33,39 @@ const Subscription = () => {
             <Helmet>
                 <title>Subscription | OpenPage</title>
             </Helmet>
-
+            {/* Banner */}
             <div className="relative w-full h-64 bg-orange-600 flex items-center justify-center">
                 <h1 className="text-5xl font-bold text-white">
-                    Subscribe Now! ✨
+                    Subscribe Now! ✨🚀
                 </h1>
             </div>
-
             <Container>
-                <div className="text-center py-10">
-                    <h2 className="text-4xl font-bold">
-                        Choose Your Plan
-                    </h2>
-
-                    <p className="mt-4 text-gray-600">
+                <div className="text-center">
+                    <h2 className="text-4xl font-bold">Choose Your Plan</h2>
+                    <p className="mt-4">
                         Select a subscription plan that suits you best.
                     </p>
                 </div>
 
-                <div className="max-w-md mx-auto mb-10">
+                {/* Subscription form */}
+                <div className="subscription-form mt-8 max-w-md mx-auto">
                     <label
                         htmlFor="subscriptionPeriod"
-                        className="block text-lg font-medium mb-2"
+                        className="block text-lg font-medium"
                     >
                         Subscription Period
                     </label>
-
                     <select
                         id="subscriptionPeriod"
                         value={subscriptionPeriod}
-                        onChange={(e) =>
-                            setSubscriptionPeriod(e.target.value)
-                        }
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                        onChange={(e) => setSubscriptionPeriod(e.target.value)}
+                        className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-md"
+                        required
                     >
                         <option value="" disabled>
                             Select a subscription
                         </option>
-
-                        {subscriptions?.map((subscription) => (
+                        {subscriptions.map((subscription) => (
                             <option
                                 key={subscription._id}
                                 value={subscription.subscriptionPeriod}
@@ -89,7 +79,7 @@ const Subscription = () => {
                     <button
                         onClick={handleSubscription}
                         disabled={!subscriptionPeriod}
-                        className="w-full mt-4 px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 disabled:bg-gray-400"
+                        className="w-full mt-4 px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700"
                     >
                         Subscribe
                     </button>
