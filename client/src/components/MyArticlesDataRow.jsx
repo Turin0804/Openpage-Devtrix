@@ -35,8 +35,40 @@ const MyArticlesDataRow = ({ articles, article, refetch }) => {
         setIsEditModalOpen(false);
     }
 
+    // Update an article
+    const handleUpdate = async () => {
+        try {
+            const updatedArticle = {
+                title: updatedTitle,
+                description: updatedDescription,
+            };
+            await axiosSecure.put(`/articles/${_id}`, updatedArticle);
+            // Call refetch to update the UI
+            refetch();
+            toast.success("Article updated successfully!");
+        } catch (err) {
+            console.log(err);
+            toast.error(err.response.data);
+        } finally {
+            closeEditModal();
+        }
+    };
 
-    
+    // Delete a article
+    const handleDelete = async () => {
+        try {
+            // console.log("Deleted: ", _id);
+            await axiosSecure.delete(`/articles/${_id}`);
+            // Call refetch to update the UI
+            refetch();
+            toast.success("article deleted successfully!");
+        } catch (err) {
+            console.log(err);
+            toast.error(err.response.data);
+        } finally {
+            closeModal();
+        }
+    };
 
     return (
         <tr>
