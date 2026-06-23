@@ -54,7 +54,7 @@ const client = new MongoClient(uri, {
 });
 async function run() {
     try {
-        const db = client.db("insightarc");
+        const db = client.db("openpage");
         const usersCollection = db.collection("users");
         const articlesCollection = db.collection("articles");
         const publishersCollection = db.collection("publishers");
