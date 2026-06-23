@@ -102,3 +102,18 @@ app.listen(port, () => {
             const user = await usersCollection.findOne(query);
             res.send(user);
         });
+
+           // Update user role and status
+        app.patch("/users/role/:email", verifyToken, async (req, res) => {
+            const email = req.params.email;
+            const { role } = req.body;
+            const filter = { email };
+
+            const updateDoc = {
+                $set: {
+                    role,
+                },
+            };
+            const result = await usersCollection.updateOne(filter, updateDoc);
+            res.send(result);
+        });
