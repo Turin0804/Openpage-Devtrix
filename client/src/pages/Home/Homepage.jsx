@@ -49,7 +49,7 @@ const Homepage = () => {
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
                     <div className="bg-white p-6 rounded-lg shadow-lg text-center relative">
                         <h2 className="text-2xl font-bold mb-4">
-                            Subscribe Now! ✨🚀
+                            Subscribe Now! ✨
                         </h2>
                         <p className="mb-4">
                             Get access to premium content by subscribing to our

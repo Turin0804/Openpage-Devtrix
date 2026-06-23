@@ -107,7 +107,7 @@ const Navbar = () => {
                             OpenPage
                         </Link>
                         <p className="text-xs">
-                            Your Arc of Knowledge and Insight
+                            Create. Write. Share.
                         </p>
                     </div>
 

@@ -27,7 +27,7 @@ const Articles = () => {
     return (
         <Container>
             <h1 className="text-4xl font-grenze font-bold text-center mb-8">
-                OpenPage
+                Articles
             </h1>
             <input
                 type="text"
