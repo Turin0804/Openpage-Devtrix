@@ -39,6 +39,51 @@ const SignUp = () => {
         return errors;
     };
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const image = form.image.files[0];
+        // console.log(image);
+
+        // Validate Password
+        const passwordErrors = validatePassword(password);
+
+        if (Object.keys(passwordErrors).length > 0) {
+            setErrors(passwordErrors);
+            toast.error(
+                "Password is not correct. Please write correct password!!"
+            );
+            return;
+        }
+
+        // Clear password error if validation passes
+        setPasswordError("");
+
+        // Upload Image
+        const photoUrl = await uploadImage(image);
+
+        try {
+            // User Registration
+            const result = await createUser(email, password);
+
+            // Save username & profile photo
+            await updateUserProfile(name, photoUrl);
+            // console.log(result);
+            // Save user in database
+            await saveUser({ ...result.user, displayName: name, photoUrl });
+
+            toast.success("Signup Successful");
+            navigate("/");
+        } catch (err) {
+            console.log(err);
+            toast.error(err?.message);
+        }
+    };
+ 
+
 return (
         <>
             <Navbar />
