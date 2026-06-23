@@ -8,55 +8,58 @@ const Publishers = () => {
     const { data: publishers, isLoading } = useQuery({
         queryKey: ["publishers"],
         queryFn: async () => {
-            const response = await axios(
-                `${import.meta.env.VITE_API_URL}/publishers`
-            );
+            const response = await axios(`${import.meta.env.VITE_API_URL}/publishers`);
             return response.data;
         },
     });
     if (isLoading) return <LoadingSpinner />;
 
     return (
-        <Container>
-            <h1 className="text-4xl font-bold text-center mb-8">Publishers</h1>
-            <Marquee pauseOnHover={true} className="space-x-10">
-                <div className="mt-12 flex gap-6">
-                    {publishers.map((publisher) => (
+        <section className="bg-zinc-900 border-y border-white/[0.06] py-16 sm:py-20">
+            <Container>
+                <div className="text-center mb-10 sm:mb-14">
+                    <p className="text-orange-400 text-xs font-semibold uppercase tracking-widest mb-3">Trusted sources</p>
+                    <h2 className="text-3xl sm:text-4xl font-bold text-white">Our Publishers</h2>
+                    <div className="mt-4 h-px w-16 bg-gradient-to-r from-transparent via-orange-500 to-transparent mx-auto" />
+                </div>
+            </Container>
+
+            <Marquee pauseOnHover speed={40} gradient={false}>
+                <div className="flex gap-5 px-3">
+                    {publishers?.map((publisher) => (
                         <div
                             key={publisher._id}
-                            className="bg-white shadow-lg rounded-md overflow-hidden"
+                            className="group bg-zinc-800 border border-zinc-700 rounded-2xl overflow-hidden w-56 flex-shrink-0 hover:border-orange-500/40 hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-900/20 transition-all duration-300"
                         >
-                            <img
-                                className="w-60 h-48 object-contain"
-                                src={publisher.logo}
-                                alt={publisher.publisherName}
-                            />
+                            <div className="bg-zinc-700/40 h-32 flex items-center justify-center overflow-hidden">
+                                <img
+                                    className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                                    src={publisher.logo}
+                                    alt={publisher.publisherName}
+                                />
+                            </div>
                             <div className="p-4">
-                                <h2 className="text-xl font-bold mb-2">
-                                    {publisher.publisherName}
-                                </h2>
-                                <p className="text-gray-600 mb-4">
-                                    {publisher.description}
-                                </p>
-                                <div className="flex items-center justify-between">
-                                    <a
-                                        href={publisher.website}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-orange-600 hover:text-orange-800"
-                                    >
-                                        Visit Website
-                                    </a>
-                                    <span className="text-gray-500 text-sm">
-                                        {publisher.articlesCount} articles
-                                    </span>
+                                <h3 className="text-white font-semibold text-sm truncate">{publisher.publisherName}</h3>
+                                {publisher.description && (
+                                    <p className="text-gray-500 text-xs mt-1 line-clamp-2">{publisher.description}</p>
+                                )}
+                                <div className="flex items-center justify-between mt-3">
+                                    {publisher.website && (
+                                        <a href={publisher.website} target="_blank" rel="noopener noreferrer"
+                                            className="text-orange-400 text-xs hover:text-orange-300 transition-colors duration-200 font-medium">
+                                            Visit ↗
+                                        </a>
+                                    )}
+                                    {publisher.articlesCount !== undefined && (
+                                        <span className="text-gray-600 text-xs">{publisher.articlesCount} articles</span>
+                                    )}
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </Marquee>
-        </Container>
+        </section>
     );
 };
 

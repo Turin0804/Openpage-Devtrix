@@ -21,119 +21,29 @@ const Navbar = () => {
             return response.data;
         },
     });
+
     const { userHasSubscription, role } = userData || {};
     if (isLoading) return <LoadingSpinner />;
 
-    const links = (
-        <>
-            <NavLink
-                to="/"
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        isActive
-                            ? "text-orange-400 bg-orange-500/10"
-                            : "text-gray-300 hover:text-white hover:bg-white/5"
-                    }`
-                }
-            >
-                Home
-            </NavLink>
-            <NavLink
-                to="/add-article"
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        isActive
-                            ? "text-orange-400 bg-orange-500/10"
-                            : "text-gray-300 hover:text-white hover:bg-white/5"
-                    }`
-                }
-            >
-                Add Article
-            </NavLink>
-            <NavLink
-                to="/articles"
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        isActive
-                            ? "text-orange-400 bg-orange-500/10"
-                            : "text-gray-300 hover:text-white hover:bg-white/5"
-                    }`
-                }
-            >
-                Articles
-            </NavLink>
-            <NavLink
-                to="/subscription"
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        isActive
-                            ? "text-orange-400 bg-orange-500/10"
-                            : "text-gray-300 hover:text-white hover:bg-white/5"
-                    }`
-                }
-            >
-                Subscription
-            </NavLink>
-            <NavLink
-                to="/my-articles"
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        isActive
-                            ? "text-orange-400 bg-orange-500/10"
-                            : "text-gray-300 hover:text-white hover:bg-white/5"
-                    }`
-                }
-            >
-                My Articles
-            </NavLink>
-            {userHasSubscription && (
-                <NavLink
-                    to="/premium-articles"
-                    onClick={() => setIsOpen(false)}
-                    className={({ isActive }) =>
-                        `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                            isActive
-                                ? "text-amber-400 bg-amber-500/10"
-                                : "text-amber-300 hover:text-amber-200 hover:bg-amber-500/5"
-                        }`
-                    }
-                >
-                    ★ Premium
-                </NavLink>
-            )}
-            {role === "admin" && (
-                <NavLink
-                    to="/dashboard"
-                    onClick={() => setIsOpen(false)}
-                    className={({ isActive }) =>
-                        `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                            isActive
-                                ? "text-orange-400 bg-orange-500/10"
-                                : "text-gray-300 hover:text-white hover:bg-white/5"
-                        }`
-                    }
-                >
-                    Dashboard
-                </NavLink>
-            )}
-        </>
-    );
+    const close = () => setIsOpen(false);
+
+    const linkClass = ({ isActive }) =>
+        `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+            isActive
+                ? "text-orange-400 bg-orange-500/10"
+                : "text-gray-300 hover:text-white hover:bg-white/5"
+        }`;
 
     return (
-        <div className="sticky top-0 z-50 bg-zinc-950/90 backdrop-blur-xl border-b border-white/8">
+        <div className="sticky top-0 z-50 bg-zinc-950/90 backdrop-blur-xl border-b border-white/[0.08]">
             <div className="max-w-screen-xl mx-auto px-4 lg:px-6 py-3">
-                <div className="flex flex-row items-center justify-between gap-3">
+                <div className="flex items-center justify-between">
                     {/* Logo */}
                     <Link to="/" className="flex flex-col leading-tight group">
                         <span className="font-rye text-2xl font-bold text-white group-hover:text-orange-400 transition-colors duration-200">
                             OpenPage
                         </span>
-                        <span className="text-[10px] text-gray-500 tracking-widest uppercase">
+                        <span className="text-[10px] text-gray-500 tracking-widest uppercase hidden sm:block">
                             Create · Write · Share
                         </span>
                     </Link>
@@ -142,10 +52,10 @@ const Navbar = () => {
                     <div className="flex gap-3 items-center relative">
                         <ThemeToggle />
 
-                        {/* Avatar + Hamburger trigger */}
+                        {/* Avatar + Hamburger */}
                         <div
                             onClick={() => setIsOpen(!isOpen)}
-                            className="flex flex-row items-center gap-2.5 px-3 py-1.5 border border-white/10 rounded-full cursor-pointer hover:border-orange-500/50 hover:bg-white/5 transition-all duration-200"
+                            className="flex items-center gap-2.5 px-2.5 py-1.5 border border-white/10 rounded-full cursor-pointer hover:border-orange-500/50 hover:bg-white/5 transition-all duration-200"
                         >
                             <AiOutlineMenu className="text-gray-400 text-sm" />
                             <Link to="/profile" onClick={(e) => e.stopPropagation()}>
@@ -160,37 +70,59 @@ const Navbar = () => {
 
                         {/* Dropdown */}
                         {isOpen && (
-                            <div className="absolute right-0 top-14 w-56 bg-zinc-900 border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden z-50 animate-[fadeInDown_0.15s_ease-out]">
-                                <div className="p-2 flex flex-col gap-0.5">
-                                    {links}
-                                    <div className="my-1 h-px bg-white/10" />
-                                    {user ? (
-                                        <button
-                                            onClick={() => { logOut(); setIsOpen(false); }}
-                                            className="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 cursor-pointer"
-                                        >
-                                            Logout
-                                        </button>
-                                    ) : (
-                                        <>
-                                            <Link
-                                                to="/login"
-                                                onClick={() => setIsOpen(false)}
-                                                className="block px-4 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all duration-200"
+                            <>
+                                {/* Overlay to close */}
+                                <div className="fixed inset-0 z-40" onClick={close} />
+                                <div className="absolute right-0 top-14 w-56 bg-zinc-900 border border-white/10 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden z-50">
+                                    <div className="p-2 flex flex-col gap-0.5">
+                                        <NavLink to="/" onClick={close} className={linkClass}>Home</NavLink>
+                                        <NavLink to="/add-article" onClick={close} className={linkClass}>Add Article</NavLink>
+                                        <NavLink to="/articles" onClick={close} className={linkClass}>Articles</NavLink>
+                                        <NavLink to="/subscription" onClick={close} className={linkClass}>Subscription</NavLink>
+                                        <NavLink to="/my-articles" onClick={close} className={linkClass}>My Articles</NavLink>
+
+                                        {userHasSubscription && (
+                                            <NavLink
+                                                to="/premium-articles"
+                                                onClick={close}
+                                                className={({ isActive }) =>
+                                                    `block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                                        isActive
+                                                            ? "text-amber-400 bg-amber-500/10"
+                                                            : "text-amber-300 hover:text-amber-200 hover:bg-amber-500/5"
+                                                    }`
+                                                }
                                             >
-                                                Login
-                                            </Link>
-                                            <Link
-                                                to="/signup"
-                                                onClick={() => setIsOpen(false)}
-                                                className="block px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-500 transition-all duration-200 text-center mt-1"
+                                                ★ Premium
+                                            </NavLink>
+                                        )}
+
+                                        {role === "admin" && (
+                                            <NavLink to="/dashboard" onClick={close} className={linkClass}>Dashboard</NavLink>
+                                        )}
+
+                                        <div className="my-1 h-px bg-white/10" />
+
+                                        {user ? (
+                                            <button
+                                                onClick={() => { logOut(); close(); }}
+                                                className="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 cursor-pointer"
                                             >
-                                                Sign Up
-                                            </Link>
-                                        </>
-                                    )}
+                                                Logout
+                                            </button>
+                                        ) : (
+                                            <>
+                                                <Link to="/login" onClick={close} className="block px-4 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all duration-200">
+                                                    Login
+                                                </Link>
+                                                <Link to="/signup" onClick={close} className="block px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-orange-600 hover:bg-orange-500 transition-all duration-200 text-center mt-1">
+                                                    Sign Up
+                                                </Link>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
+                            </>
                         )}
                     </div>
                 </div>
