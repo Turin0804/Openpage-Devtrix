@@ -1,29 +1,90 @@
 import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
-import AllArticlesDataRow from "../../components/AllArticlesDataRow";
-import axios from "axios";
-import useAuth from "../../hooks/useAuth";
+import UserDataRow from "../../components/UserDataRow";
 
-if (isLoading) return <LoadingSpinner />;
+const AllUsers = () => {
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
+    const {
+        data: users = [],
+        isLoading,
+        refetch,
+    } = useQuery({
+        // [] is the initial value of users
+        queryKey: ["users", user?.email],
+        queryFn: async () => {
+            const { data } = await axiosSecure(`/all-users/${user?.email}`);
+            return data;
+        },
+    });
+    // console.log(users);
 
-return (
-    <>
-        <Helmet>
-            <title>All Articles | Dashboard | InsightArc</title>
-        </Helmet>
+    if (isLoading) return <LoadingSpinner />;
 
-        <div className="container mx-auto px-4 sm:px-8">
-            <div className="py-8">
-                <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-                    <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+    return (
+        <>
+            <div className="container mx-auto px-4 sm:px-8">
+                <Helmet>
+                    <title>All Users | Dashboard | OpenPage</title>
+                </Helmet>
 
+                <div className="py-8">
+                    <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                        <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                            <table className="min-w-full leading-normal">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            scope="col"
+                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                                        >
+                                            Photo
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                                        >
+                                            Name
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                                        >
+                                            Email
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                                        >
+                                            Role
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                                        >
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {users.map((userData) => (
+                                        <UserDataRow
+                                            key={userData?._id}
+                                            userData={userData}
+                                            refetch={refetch}
+                                        />
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </>
-);
+        </>
+    );
+};
 
-export default AllArticles;
+export default AllUsers;

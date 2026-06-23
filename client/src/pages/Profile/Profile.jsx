@@ -14,7 +14,7 @@ const Profile = () => {
     return (
         <>
             <Helmet>
-                <title>{user?.displayName} | InsightArc</title>
+                <title>{user?.displayName} | OpenPage</title>
             </Helmet>
 
             <Container>
@@ -32,7 +32,7 @@ const Profile = () => {
                         />
                     </a>
 
-                    <p className="p-2 px-4 text-xs text-white bg-indigo-500 rounded-full capitalize">
+                    <p className="p-2 px-4 text-xs text-white bg-orange-500 rounded-full capitalize">
                         {role}
                     </p>
                     <p className="mt-2 text-xl font-medium text-gray-800 ">
@@ -54,10 +54,10 @@ const Profile = () => {
                             </p>
 
                             <div className="flex flex-col">
-                                <button className="bg-indigo-500 px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-indigo-800 block mb-1">
+                                <button className="bg-orange-500 px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-orange-800 block mb-1">
                                     Update Profile
                                 </button>
-                                <button className="bg-indigo-500 px-7 py-1 rounded-lg text-white cursor-pointer hover:bg-indigo-800">
+                                <button className="bg-orange-500 px-7 py-1 rounded-lg text-white cursor-pointer hover:bg-orange-800">
                                     Change Password
                                 </button>
                             </div>

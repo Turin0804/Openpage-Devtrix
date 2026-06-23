@@ -26,7 +26,7 @@ const Sidebar = () => {
             <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden">
                 <div className="block cursor-pointer p-4 font-bold">
                     <Link to="/" className="font-rye text-2xl">
-                        openpage
+                        OpenPage
                     </Link>
                 </div>
 
@@ -46,7 +46,7 @@ const Sidebar = () => {
                 <div>
                     <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-orange-100 mx-auto">
                         <Link to="/" className="font-rye text-2xl">
-                            openpage
+                            OpenPage
                         </Link>
                     </div>
 
