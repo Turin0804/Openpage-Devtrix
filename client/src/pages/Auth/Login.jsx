@@ -8,6 +8,7 @@ import { saveUser } from "../../api/utils";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
 import Navbar from "../../components/common/Navbar";
 import { useState } from "react";
+
 const Login = () => {
     const { signIn, signInWithGoogle, loading, user } = useAuth();
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ const Login = () => {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+
     // form submit handler
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -123,7 +125,8 @@ const Login = () => {
                                 </div>
                             </div>
                         </div>
-                       <div>
+
+                        <div>
                             <button
                                 type="submit"
                                 className="bg-indigo-500 w-full rounded-md py-3 text-white"

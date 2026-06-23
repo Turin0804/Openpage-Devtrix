@@ -8,6 +8,18 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import { saveUser, uploadImage } from "../../api/utils";
 import Navbar from "../../components/common/Navbar";
 
+const SignUp = () => {
+    const { createUser, updateUserProfile, signInWithGoogle, loading } =
+        useAuth();
+    const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [passwordError, setPasswordError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
 return (
         <>
             <Navbar />
