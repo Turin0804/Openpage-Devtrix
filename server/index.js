@@ -223,3 +223,116 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
     console.log(`openpage is running on port ${port}`);
 });
+
+/**
+         *
+         * Users API
+         *
+         */
+
+        // Get all users data
+        app.get("/all-users", async (req, res) => {
+            const users = await usersCollection.find().toArray();
+            res.send(users);
+        });
+
+          // Count all users, normal users, and premium users
+        app.get("/users-stat", async (req, res) => {
+            try {
+                const totalUsers = await usersCollection.countDocuments();
+                const premiumUsers = await usersCollection.countDocuments({
+                    userHasSubscription: true,
+                });
+                const normalUsers = totalUsers - premiumUsers;
+
+                res.send({
+                    totalUsers,
+                    normalUsers,
+                    premiumUsers,
+                });
+            } catch (error) {
+                console.error("Error counting users:", error);
+                res.status(500).send("Error counting users");
+            }
+        });
+            // Get all users data except the current user
+        app.get("/all-users/:email", verifyToken, async (req, res) => {
+            const email = req.params.email;
+            const query = { email: { $ne: email } };
+            const users = await usersCollection.find(query).toArray();
+            res.send(users);
+        });
+
+           // Get user data by email
+        app.get("/users/:email", async (req, res) => {
+            const email = req.params.email;
+            const query = { email };
+            const user = await usersCollection.findOne(query);
+            res.send(user);
+        });
+
+           // Update user role and status
+        app.patch("/users/role/:email", verifyToken, async (req, res) => {
+            const email = req.params.email;
+            const { role } = req.body;
+            const filter = { email };
+
+            const updateDoc = {
+                $set: {
+                    role,
+                },
+            };
+            const result = await usersCollection.updateOne(filter, updateDoc);
+            res.send(result);
+        });
+
+           // Get user role
+        app.get("/users/role/:email", verifyToken, async (req, res) => {
+            const email = req.params.email;
+            const query = { email };
+            const user = await usersCollection.findOne(query);
+            res.send({ role: user?.role });
+        });
+
+        // // GET current user data
+        // app.get("/users/me", verifyToken, async (req, res) => {
+        //     const email = req.user;
+        //     const query = { email: email };
+        //     const user = await usersCollection.findOne(query);
+        //     res.send(user);
+        // });
+  // Save or update user data in the database
+        app.post("/users/:email", async (req, res) => {
+            const email = req.params.email;
+            const query = { email };
+            const user = req.body;
+            // check if user exists in the database
+            const existingUser = await usersCollection.findOne(query);
+            if (existingUser) {
+                return res.send(existingUser);
+            }
+            const result = await usersCollection.insertOne({
+                ...user,
+                role: "user",
+                timestamp: Date.now(),
+                userHasSubscription: false,
+                premiumTaken: "",
+            });
+            res.send(result);
+        });
+
+        
+        // // Update urrent user data
+        // app.patch("/users/me", verifyToken, async (req, res) => {
+        //     const email = req.user;
+        //     const query = { email };
+        //     const update = { $set: req.body };
+        //     const options = { returnOriginal: false };
+        //     const result = await usersCollection.findOneAndUpdate(
+        //         query,
+        //         update,
+        //         options
+        //     );
+        //     res.send(result.value);
+        // });
+
