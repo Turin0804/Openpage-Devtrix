@@ -133,4 +133,22 @@ app.listen(port, () => {
         //     const user = await usersCollection.findOne(query);
         //     res.send(user);
         // });
-
+  // Save or update user data in the database
+        app.post("/users/:email", async (req, res) => {
+            const email = req.params.email;
+            const query = { email };
+            const user = req.body;
+            // check if user exists in the database
+            const existingUser = await usersCollection.findOne(query);
+            if (existingUser) {
+                return res.send(existingUser);
+            }
+            const result = await usersCollection.insertOne({
+                ...user,
+                role: "user",
+                timestamp: Date.now(),
+                userHasSubscription: false,
+                premiumTaken: "",
+            });
+            res.send(result);
+        });
