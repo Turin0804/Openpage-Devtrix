@@ -11,6 +11,7 @@ import { Helmet } from "react-helmet-async";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
+// payment
 const Payment = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();

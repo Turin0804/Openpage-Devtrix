@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Rye&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Rye&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,6 +6,26 @@
 
 html {
     overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #0f0f0f;
+}
+::-webkit-scrollbar-thumb {
+    background: #E7700D;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #c45e09;
 }
 
 .custom-first-letter::first-letter {
@@ -15,6 +35,22 @@ html {
     margin: 5px;
 }
 
-/* .custom-first-line::first-line {
-    font-weight: bold;
-} */
+/* Section separator gradient line */
+.gradient-line {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #E7700D, transparent);
+}
+
+/* Animated gradient text */
+@keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+.gradient-text {
+    background: linear-gradient(90deg, #E7700D, #F59E0B, #E7700D);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+}
