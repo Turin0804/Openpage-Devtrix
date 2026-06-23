@@ -12,7 +12,16 @@ const AdminMenu = () => {
                 label="Statistics"
                 address="/dashboard"
             />
-            
+            <MenuItem
+                icon={FaUserCog}
+                label="All Users"
+                address="all-users"
+            />
+            <MenuItem
+                icon={RiArticleFill}
+                label="All Articles"
+                address="all-articles"
+            />
             <MenuItem
                 icon={CgOrganisation}
                 label="Add Publisher"
