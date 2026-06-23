@@ -117,3 +117,20 @@ app.listen(port, () => {
             const result = await usersCollection.updateOne(filter, updateDoc);
             res.send(result);
         });
+
+           // Get user role
+        app.get("/users/role/:email", verifyToken, async (req, res) => {
+            const email = req.params.email;
+            const query = { email };
+            const user = await usersCollection.findOne(query);
+            res.send({ role: user?.role });
+        });
+
+        // // GET current user data
+        // app.get("/users/me", verifyToken, async (req, res) => {
+        //     const email = req.user;
+        //     const query = { email: email };
+        //     const user = await usersCollection.findOne(query);
+        //     res.send(user);
+        // });
+
