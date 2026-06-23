@@ -19,6 +19,7 @@ const SignUp = () => {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+
     const validatePassword = (password) => {
         const errors = {};
         if (password.length < 6) {
@@ -82,7 +83,7 @@ const SignUp = () => {
             toast.error(err?.message);
         }
     };
-    
+
     // Handle Google Signin
     const handleGoogleSignIn = async () => {
         try {
@@ -99,7 +100,7 @@ const SignUp = () => {
         }
     };
 
-return (
+    return (
         <>
             <Navbar />
 
@@ -108,7 +109,7 @@ return (
                     <div className="mb-8 text-center">
                         <h1 className="my-3 text-4xl font-bold">Sign Up</h1>
                         <p className="text-sm text-gray-400">
-                            Welcome to InsightArc
+                            Welcome to OpenPage
                         </p>
                     </div>
                     <form
@@ -130,7 +131,7 @@ return (
                                     name="name"
                                     id="name"
                                     placeholder="Enter Your Name Here"
-                                    className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-indigo-500 bg-gray-200 text-gray-900"
+                                    className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-orange-500 bg-gray-200 text-gray-900"
                                     data-temp-mail-org="0"
                                 />
                             </div>
@@ -162,7 +163,7 @@ return (
                                     id="email"
                                     required
                                     placeholder="Enter Your Email Here"
-                                    className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-indigo-500 bg-gray-200 text-gray-900"
+                                    className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-orange-500 bg-gray-200 text-gray-900"
                                     data-temp-mail-org="0"
                                 />
                             </div>
@@ -185,7 +186,7 @@ return (
                                         id="password"
                                         required
                                         placeholder="*******"
-                                        className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-indigo-500 bg-gray-200 text-gray-900"
+                                        className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-orange-500 bg-gray-200 text-gray-900"
                                     />
                                     <div
                                         className="absolute inset-y-5 right-0 pr-3 flex items-center cursor-pointer"
@@ -228,7 +229,7 @@ return (
                         <div>
                             <button
                                 type="submit"
-                                className="bg-indigo-500 w-full rounded-md py-3 text-white"
+                                className="bg-orange-500 w-full rounded-md py-3 text-white"
                             >
                                 {loading ? (
                                     <TbFidgetSpinner className="animate-spin m-auto" />
@@ -257,7 +258,7 @@ return (
                         Already have an account?{" "}
                         <Link
                             to="/login"
-                            className="hover:underline hover:text-indigo-500 text-gray-600"
+                            className="hover:underline hover:text-orange-500 text-gray-600"
                         >
                             Login
                         </Link>
@@ -266,3 +267,6 @@ return (
             </div>
         </>
     );
+};
+
+export default SignUp;
