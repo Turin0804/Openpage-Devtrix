@@ -9,7 +9,7 @@ const UserStatistics = () => {
     const { data: stat = {}, isLoading } = useQuery({
         queryKey: ["stat"],
         queryFn: async () => {
-            const response = await axios(${import.meta.env.VITE_API_URL}/users-stat);
+            const response = await axios(`${import.meta.env.VITE_API_URL}/users-stat`);
             return response.data;
         },
     });
@@ -39,12 +39,12 @@ const UserStatistics = () => {
                             {/* Hover glow effect behind the icon */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-current opacity-0 group-hover:opacity-[0.03] dark:group-hover:opacity-[0.05] rounded-full blur-2xl transition-opacity duration-500 pointer-events-none" style={{ color: index === 0 ? '#ea580c' : index === 1 ? '#0284c7' : '#d97706' }}></div>
 
-                            <div className={w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-white/50 dark:border-white/5 ${icon} group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500}>
+                            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-white/50 dark:border-white/5 ${icon} group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500`}>
                                 <Icon size={28} />
                             </div>
                             
                             <div className="flex-grow">
-                                <CountUp end={value || 0} duration={3} className={text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter ${num} drop-shadow-sm} />
+                                <CountUp end={value || 0} duration={3} className={`text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter ${num} drop-shadow-sm`} />
                             </div>
                             
                             <div className="mt-4">
