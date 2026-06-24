@@ -28,8 +28,13 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 const verifyToken = async (req, res, next) => {
-    // console.log(req.cookies);
-    const token = req.cookies?.token;
+    // Check Authorization header first, then fallback to cookie
+    const authHeader = req.headers.authorization;
+    let token = req.cookies?.token;
+
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+        token = authHeader.split(" ")[1];
+    }
 
     if (!token) {
         return res.status(401).send({ message: "unauthorized access" });
@@ -116,7 +121,7 @@ app.post("/jwt", async (req, res) => {
         secure: process.env.NODE_ENV === "production",
         sameSite:
             process.env.NODE_ENV === "production" ? "none" : "strict",
-    }).send({ success: true });
+    }).send({ success: true, token });
 });
 
 // Logout
