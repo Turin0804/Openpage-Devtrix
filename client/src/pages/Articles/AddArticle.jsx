@@ -70,7 +70,7 @@ const AddArticle = () => {
     };
 
     return (
-        <div className="bg-white dark:bg-zinc-950 min-h-[calc(100vh-64px)] py-8 transition-colors duration-200">
+        <div className="bg-white dark:bg-zinc-950 min-h-[calc(100vh-64px)] transition-colors duration-200">
             <Helmet>
                 <title>Add Article | OpenPage</title>
             </Helmet>
