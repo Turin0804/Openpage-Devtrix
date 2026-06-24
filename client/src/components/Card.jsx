@@ -5,6 +5,7 @@ import { FiArrowRight, FiLock } from "react-icons/fi";
 import useAuth from "../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import coverImg from "../assets/article-cover.png";
 
 const Card = ({ article }) => {
     const { _id, title, image, publisher, tags, description, isPremium } = article;
@@ -25,7 +26,15 @@ const Card = ({ article }) => {
         <div className="group col-span-1 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl overflow-hidden flex flex-col shadow-sm hover:shadow-lg dark:hover:shadow-orange-900/20 hover:border-orange-300 dark:hover:border-orange-500/40 hover:-translate-y-1 transition-all duration-300">
             {/* Image */}
             <div className="relative aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-zinc-800">
-                <img className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-500" src={image} alt={title} />
+                <img 
+                    className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-500" 
+                    src={image || coverImg} 
+                    alt={title} 
+                    onError={(e) => {
+                        e.target.onerror = null; // Prevent infinite loops
+                        e.target.src = coverImg;
+                    }}
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {isPremium && (
@@ -50,7 +59,7 @@ const Card = ({ article }) => {
                 <h3 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-orange-600 dark:group-hover:text-orange-100 transition-colors duration-200">
                     {title}
                 </h3>
-                <p className="text-gray-500 dark:text-gray-500 text-xs sm:text-sm leading-relaxed line-clamp-2 flex-grow">{description}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm leading-relaxed line-clamp-2 flex-grow">{description}</p>
 
                 {tags?.length > 0 && (
                     <div className="flex flex-wrap gap-1.5">
