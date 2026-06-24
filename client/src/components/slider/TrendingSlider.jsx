@@ -20,7 +20,7 @@ const Slider = () => {
         queryKey: ["articles"],
         queryFn: async () => {
             const response = await axios.get(
-                ${import.meta.env.VITE_API_URL}/trending-articles
+                `${import.meta.env.VITE_API_URL}/trending-articles`
             );
             return response.data;
         },

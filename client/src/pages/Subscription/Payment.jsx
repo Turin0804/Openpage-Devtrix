@@ -66,7 +66,7 @@ const Payment = () => {
                             Secure Checkout
                         </h2>
                         <p className="mt-3 text-gray-600 dark:text-gray-400">
-                            You're upgrading to the <span className="font-bold text-orange-500 capitalize">{subscriptionPeriod}</span> plan.
+                            You&apos;re upgrading to the <span className="font-bold text-orange-500 capitalize">{subscriptionPeriod}</span> plan.
                         </p>
                     </div>
 
