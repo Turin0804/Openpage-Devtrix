@@ -16,18 +16,19 @@ const Newsletter = () => {
     return (
         <section className="bg-white dark:bg-zinc-950 py-16 sm:py-20">
             <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
-                <div className="bg-gray-50 dark:bg-gradient-to-br dark:from-zinc-900 dark:to-zinc-800 border border-gray-200 dark:border-white/[0.08] rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden relative">
-                    <div className="absolute -top-20 -right-20 w-72 h-72 bg-orange-500/5 dark:bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
-                    <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-orange-500/5 dark:bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
+                <div className="relative overflow-hidden bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-[2rem] shadow-xl p-8 sm:p-12 md:p-16">
+                    {/* Ambient Glows */}
+                    <div className="absolute -top-20 -right-20 w-72 h-72 bg-orange-500/5 dark:bg-orange-500/20 rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-orange-500/5 dark:bg-orange-500/20 rounded-full blur-3xl pointer-events-none" />
 
-                    <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                    <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                         <div>
                             <p className="text-orange-500 dark:text-orange-400 text-xs font-semibold uppercase tracking-widest mb-3">Stay informed</p>
                             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white leading-tight">
                                 Get the best stories<br />
                                 <span className="gradient-text">delivered to you</span>
                             </h2>
-                            <p className="text-gray-500 mt-4 text-sm leading-relaxed">
+                            <p className="text-gray-500 dark:text-gray-400 mt-4 text-sm leading-relaxed">
                                 Join thousands of readers who get the latest news, exclusive editorial pieces, and premium insights straight to their inbox.
                             </p>
                             <div className="flex items-center gap-3 mt-6">

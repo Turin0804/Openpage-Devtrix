@@ -64,7 +64,7 @@ const Homepage = () => {
                             <FiStar size={24} className="text-orange-500 dark:text-orange-400" />
                         </div>
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Go Premium ✨</h2>
-                        <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                        <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6">
                             Unlock exclusive articles, in-depth analysis, and ad-free reading. Subscribe now for as little as $1.
                         </p>
                         <button
@@ -73,7 +73,7 @@ const Homepage = () => {
                             See Subscription Plans <FiArrowRight size={15} />
                         </button>
                         <button onClick={() => setShowModal(false)}
-                            className="mt-3 w-full text-center text-gray-400 hover:text-gray-600 dark:text-gray-600 dark:hover:text-gray-400 text-xs transition-colors duration-200 py-1">
+                            className="mt-3 w-full text-center text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 text-xs transition-colors duration-200 py-1">
                             Maybe later
                         </button>
                     </div>
