@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 import TrendingSlider from "../../components/slider/TrendingSlider";
 import Publishers from "../../components/Home/Publishers";
 import UserStatistics from "../../components/Home/UserStatistics";
@@ -14,11 +17,23 @@ import { FiX, FiArrowRight, FiStar } from "react-icons/fi";
 const Homepage = () => {
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
+    const { user } = useAuth();
+
+    const { data: userData } = useQuery({
+        queryKey: ["userData", user?.email],
+        enabled: !!user?.email,
+        queryFn: async () => {
+            const response = await axios(`${import.meta.env.VITE_API_URL}/users/${user?.email}`);
+            return response.data;
+        },
+    });
 
     useEffect(() => {
+        if (userData?.userHasSubscription) return;
+
         const timer = setTimeout(() => setShowModal(true), 10000);
         return () => clearTimeout(timer);
-    }, []);
+    }, [userData]);
 
     return (
         <div className="bg-white dark:bg-zinc-950 min-h-screen">

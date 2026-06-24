@@ -19,12 +19,12 @@ const AddArticle = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (tags.length === 0) {
             toast.error("Please select at least one tag.");
             return;
         }
-        
+
         setUploading(true);
 
         const form = e.target;
