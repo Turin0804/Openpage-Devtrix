@@ -109,7 +109,7 @@ const AddArticleForm = ({
                 <div className="sticky top-24 space-y-8">
                     <div>
                         <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-5">Publish Settings</h3>
-
+                        
                         <div className="space-y-6">
                             {/* Publisher */}
                             <div className="space-y-2">
