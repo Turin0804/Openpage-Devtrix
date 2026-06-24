@@ -9,7 +9,7 @@ const UserStatistics = () => {
     const { data: stat = {}, isLoading } = useQuery({
         queryKey: ["stat"],
         queryFn: async () => {
-            const response = await axios(`${import.meta.env.VITE_API_URL}/users-stat`);
+            const response = await axios(${import.meta.env.VITE_API_URL}/users-stat);
             return response.data;
         },
     });
@@ -23,28 +23,39 @@ const UserStatistics = () => {
     ];
 
     return (
-        <section className="bg-white dark:bg-zinc-950 py-16 sm:py-20">
-            <Container>
-                <div className="text-center mb-10 sm:mb-14">
-                    <p className="text-orange-500 dark:text-orange-400 text-xs font-semibold uppercase tracking-widest mb-3">Community</p>
-                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Our Growing Community</h2>
-                    <div className="mt-4 h-px w-16 bg-gradient-to-r from-transparent via-orange-500 to-transparent mx-auto" />
+        <section className="bg-white dark:bg-zinc-950 py-16 sm:py-24 relative overflow-hidden">
+            {/* Background elements */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-zinc-800 to-transparent"></div>
+            
+            <Container className="relative z-10">
+                <div className="text-center mb-16 sm:mb-20">
+                    <p className="text-orange-500 dark:text-orange-400 text-xs font-bold uppercase tracking-[0.2em] mb-4">Community</p>
+                    <h2 className="text-4xl sm:text-5xl font-black text-gray-900 dark:text-white tracking-tight">Our Growing Network</h2>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
-                    {cards.map(({ label, value, Icon, light, dark, num, icon }) => (
-                        <div key={label} className={`border rounded-2xl p-6 sm:p-8 text-center flex flex-col items-center gap-4 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 ${light} ${dark}`}>
-                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${icon}`}>
-                                <Icon size={22} />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 divide-y md:divide-y-0 md:divide-x divide-gray-200 dark:divide-zinc-800/50">
+                    {cards.map(({ label, value, Icon, num, icon }, index) => (
+                        <div key={label} className="relative flex flex-col items-center text-center pt-8 md:pt-0 group px-4">
+                            {/* Hover glow effect behind the icon */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-current opacity-0 group-hover:opacity-[0.03] dark:group-hover:opacity-[0.05] rounded-full blur-2xl transition-opacity duration-500 pointer-events-none" style={{ color: index === 0 ? '#ea580c' : index === 1 ? '#0284c7' : '#d97706' }}></div>
+
+                            <div className={w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-white/50 dark:border-white/5 ${icon} group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500}>
+                                <Icon size={28} />
                             </div>
-                            <div>
-                                <CountUp end={value || 0} duration={2.5} className={`text-4xl sm:text-5xl font-bold ${num}`} />
-                                <p className="text-gray-600 dark:text-gray-400 text-sm font-medium mt-1">{label}</p>
+                            
+                            <div className="flex-grow">
+                                <CountUp end={value || 0} duration={3} className={text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter ${num} drop-shadow-sm} />
+                            </div>
+                            
+                            <div className="mt-4">
+                                <p className="text-gray-500 dark:text-zinc-400 text-sm sm:text-base font-bold uppercase tracking-widest">{label}</p>
                             </div>
                         </div>
                     ))}
                 </div>
             </Container>
+            
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-zinc-800 to-transparent mt-16"></div>
         </section>
     );
 };
