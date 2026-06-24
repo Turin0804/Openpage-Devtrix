@@ -4,6 +4,11 @@ A full-stack blogging platform built by **Team DevTrix** — allowing users to r
 
 ---
 
+## Live Demo
+
+- **Frontend**: [https://getopenpage.web.app](https://getopenpage.web.app)
+- **Backend API**: [https://openpage-server.vercel.app](https://openpage-server.vercel.app)
+
 ## Tech Stack
 
 ### Frontend
