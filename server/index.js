@@ -392,6 +392,74 @@ app.put("/articles/:id", verifyToken, requireDb, async (req, res) => {
     }
 });
 
+// Toggle Like on an article
+app.patch("/articles/:id/like", verifyToken, requireDb, async (req, res) => {
+    const id = req.params.id;
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).send({ message: "Email is required" });
+    }
+
+    const filter = { _id: new ObjectId(id) };
+    const article = await articlesCollection.findOne(filter);
+
+    if (!article) {
+        return res.status(404).send({ message: "Article not found" });
+    }
+
+    const likes = article.likes || [];
+    const hasLiked = likes.includes(email);
+
+    let updateDoc;
+    if (hasLiked) {
+        updateDoc = { $pull: { likes: email } };
+    } else {
+        updateDoc = { $push: { likes: email } };
+    }
+
+    const result = await articlesCollection.updateOne(filter, updateDoc);
+
+    if (result.modifiedCount === 1) {
+        const updatedArticle = await articlesCollection.findOne(filter);
+        res.send({ message: hasLiked ? "Unliked" : "Liked", likes: updatedArticle.likes });
+    } else {
+        res.status(500).send({ message: "Failed to update like status" });
+    }
+});
+
+// Add a comment to an article
+app.post("/articles/:id/comment", verifyToken, requireDb, async (req, res) => {
+    const id = req.params.id;
+    const { text, authorName, authorEmail, authorImage } = req.body;
+
+    if (!text || !authorEmail) {
+        return res.status(400).send({ message: "Comment text and author email are required" });
+    }
+
+    const filter = { _id: new ObjectId(id) };
+    const newComment = {
+        _id: new ObjectId(),
+        text,
+        authorName,
+        authorEmail,
+        authorImage,
+        createdAt: new Date().toISOString()
+    };
+
+    const updateDoc = {
+        $push: { comments: newComment }
+    };
+
+    const result = await articlesCollection.updateOne(filter, updateDoc);
+
+    if (result.modifiedCount === 1) {
+        res.send({ message: "Comment added successfully", comment: newComment });
+    } else {
+        res.status(500).send({ message: "Failed to add comment" });
+    }
+});
+
 // GET all premium articles
 app.get("/premium-articles", verifyToken, requireDb, async (req, res) => {
     const articles = await articlesCollection
