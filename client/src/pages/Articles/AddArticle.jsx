@@ -19,12 +19,12 @@ const AddArticle = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (tags.length === 0) {
             toast.error("Please select at least one tag.");
             return;
         }
-        
+
         setUploading(true);
 
         const form = e.target;
@@ -70,7 +70,7 @@ const AddArticle = () => {
     };
 
     return (
-        <div className="bg-white dark:bg-zinc-950 min-h-[calc(100vh-64px)] py-8 transition-colors duration-200">
+        <div className="bg-white dark:bg-zinc-950 min-h-[calc(100vh-64px)] transition-colors duration-200">
             <Helmet>
                 <title>Add Article | OpenPage</title>
             </Helmet>

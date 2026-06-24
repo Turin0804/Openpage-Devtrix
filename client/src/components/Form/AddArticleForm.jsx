@@ -81,36 +81,40 @@ const AddArticleForm = ({
     };
 
     return (
-        <div className="w-full text-gray-800 dark:text-gray-200">
-            <div className="text-center mb-8">
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Publish an Article</h1>
-                <p className="text-gray-500 mt-2 text-sm">Share your story with the OpenPage community.</p>
+        <form onSubmit={handleSubmit} className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 xl:gap-16 pt-4 lg:pt-10">
+            {/* Left Column: Writing Area (Takes up most space) */}
+            <div className="flex-1 w-full lg:w-[65%] xl:w-[70%] mt-8 lg:mt-0">
+                {/* Title */}
+                <input
+                    className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white placeholder-gray-300 dark:placeholder-zinc-700 transition-colors mb-6 lg:mb-10 resize-none"
+                    name="title"
+                    id="title"
+                    type="text"
+                    placeholder="Article Title..."
+                    required
+                />
+
+                {/* Description (Body) */}
+                <textarea
+                    id="description"
+                    placeholder="Tell your story..."
+                    className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 min-h-[60vh] text-lg sm:text-xl text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-zinc-600 transition-colors resize-y leading-relaxed font-medium"
+                    name="description"
+                    required
+                ></textarea>
             </div>
 
-            <div className="bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-white/[0.08] rounded-2xl p-6 sm:p-8 max-w-4xl mx-auto shadow-sm dark:shadow-none">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
-                        {/* Left Column */}
-                        <div className="space-y-6">
-                            {/* Title */}
-                            <div className="space-y-1.5 text-sm">
-                                <label htmlFor="title" className="block font-medium text-gray-700 dark:text-gray-300">
-                                    Title
-                                </label>
-                                <input
-                                    className="w-full px-4 py-3 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/50 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-colors"
-                                    name="title"
-                                    id="title"
-                                    type="text"
-                                    placeholder="Enter a captivating title..."
-                                    required
-                                />
-                            </div>
+            {/* Right Column: Settings Sidebar */}
+            <div className="w-full lg:w-[35%] xl:w-[30%] border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-zinc-800 pt-8 lg:pt-0 lg:pl-10 xl:pl-16">
+                <div className="sticky top-24 space-y-8">
+                    <div>
+                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-5">Publish Settings</h3>
 
+                        <div className="space-y-6">
                             {/* Publisher */}
-                            <div className="space-y-1.5 text-sm">
-                                <label htmlFor="publisher" className="block font-medium text-gray-700 dark:text-gray-300">
-                                    Publisher
+                            <div className="space-y-2">
+                                <label htmlFor="publisher" className="block text-xs font-medium text-gray-500 dark:text-gray-400">
+                                    PUBLISHER
                                 </label>
                                 <select
                                     required
@@ -120,62 +124,41 @@ const AddArticleForm = ({
                                             publisherName: e.target.options[e.target.selectedIndex].text,
                                         });
                                     }}
-                                    className="w-full px-4 py-3 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/50 rounded-xl text-gray-900 dark:text-white transition-colors appearance-none cursor-pointer"
+                                    className="w-full px-4 py-3 bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/50 rounded-xl text-gray-900 dark:text-white text-sm transition-colors cursor-pointer appearance-none"
                                     name="publisher"
                                     defaultValue=""
                                 >
-                                    <option value="" disabled className="text-gray-400">
-                                        Select a publisher...
-                                    </option>
+                                    <option value="" disabled className="text-gray-400">Select a publisher...</option>
                                     {publishers.map((publisher) => (
-                                        <option key={publisher._id} value={publisher._id}>
-                                            {publisher.publisherName}
-                                        </option>
+                                        <option key={publisher._id} value={publisher._id}>{publisher.publisherName}</option>
                                     ))}
                                 </select>
                             </div>
 
-                            {/* Description */}
-                            <div className="space-y-1.5 text-sm">
-                                <label htmlFor="description" className="block font-medium text-gray-700 dark:text-gray-300">
-                                    Description
-                                </label>
-                                <textarea
-                                    id="description"
-                                    placeholder="Write your article description here..."
-                                    className="w-full h-32 px-4 py-3 bg-white dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/50 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-colors resize-y"
-                                    name="description"
-                                    required
-                                ></textarea>
-                            </div>
-                        </div>
-
-                        {/* Right Column */}
-                        <div className="space-y-6 flex flex-col">
                             {/* Tags */}
-                            <div className="space-y-1.5 text-sm">
-                                <label htmlFor="tags" className="block font-medium text-gray-700 dark:text-gray-300">
-                                    Tags
+                            <div className="space-y-2">
+                                <label htmlFor="tags" className="block text-xs font-medium text-gray-500 dark:text-gray-400">
+                                    TAGS
                                 </label>
-                                <div className="border border-gray-300 dark:border-zinc-700 rounded-xl bg-white dark:bg-zinc-800 transition-colors focus-within:border-orange-500 focus-within:ring-1 focus-within:ring-orange-500/50">
+                                <div className="border border-gray-200 dark:border-zinc-800 rounded-xl bg-gray-50 dark:bg-zinc-900 transition-colors focus-within:border-orange-500 focus-within:ring-1 focus-within:ring-orange-500/50">
                                     <Select
                                         options={tagOptions}
                                         isMulti
                                         value={tags}
                                         onChange={setTags}
                                         styles={customSelectStyles}
-                                        className="w-full"
-                                        placeholder="Select tags..."
+                                        className="w-full text-sm"
+                                        placeholder="Add tags..."
                                     />
                                 </div>
                             </div>
 
-                            {/* Image */}
-                            <div className="space-y-1.5 text-sm flex-grow flex flex-col">
-                                <label className="block font-medium text-gray-700 dark:text-gray-300">
-                                    Cover Image
+                            {/* Cover Image */}
+                            <div className="space-y-2">
+                                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400">
+                                    COVER IMAGE
                                 </label>
-                                <div className="flex-grow border-2 border-dashed border-gray-300 dark:border-zinc-700 hover:border-orange-400 dark:hover:border-orange-500/50 rounded-xl bg-white dark:bg-zinc-800/50 flex flex-col items-center justify-center p-6 text-center transition-colors">
+                                <div className="border-2 border-dashed border-gray-200 dark:border-zinc-800 hover:border-orange-400 dark:hover:border-orange-500/50 rounded-xl bg-gray-50 dark:bg-zinc-900/50 flex flex-col items-center justify-center p-6 text-center transition-colors">
                                     <input
                                         className="hidden"
                                         type="file"
@@ -194,22 +177,22 @@ const AddArticleForm = ({
                                     />
                                     <label
                                         htmlFor="image"
-                                        className="cursor-pointer bg-gray-100 dark:bg-zinc-700 hover:bg-gray-200 dark:hover:bg-zinc-600 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-zinc-600 py-2 px-4 rounded-lg font-medium transition-colors text-sm mb-3"
+                                        className="cursor-pointer bg-white dark:bg-zinc-800 hover:bg-gray-100 dark:hover:bg-zinc-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-zinc-700 py-2 px-4 rounded-lg font-medium transition-colors text-xs mb-3 shadow-sm"
                                     >
                                         Browse Files
                                     </label>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    <p className="text-[10px] text-gray-400 dark:text-gray-500">
                                         {imageUpload?.image?.name || "No file selected"}
                                     </p>
 
                                     {imageUpload && imageUpload?.url && (
-                                        <div className="mt-4 flex flex-col items-center gap-2">
+                                        <div className="mt-4 flex flex-col items-center gap-1.5">
                                             <img
-                                                className="w-full max-w-[120px] h-auto object-cover rounded-lg border border-gray-200 dark:border-zinc-700 shadow-sm"
+                                                className="w-full max-w-[140px] h-auto object-cover rounded-lg border border-gray-200 dark:border-zinc-700 shadow-sm"
                                                 src={imageUpload?.url}
                                                 alt="Preview"
                                             />
-                                            <p className="text-[10px] text-gray-500 dark:text-gray-400">
+                                            <p className="text-[9px] text-gray-400 dark:text-gray-500">
                                                 Size: {(imageUpload.image.size / 1024).toFixed(2)} KB
                                             </p>
                                         </div>
@@ -220,11 +203,11 @@ const AddArticleForm = ({
                     </div>
 
                     {/* Submit Button */}
-                    <div className="pt-4 border-t border-gray-200 dark:border-white/[0.08]">
+                    <div className="pt-6">
                         <button
                             type="submit"
                             disabled={uploading}
-                            className="w-full py-3.5 px-4 bg-orange-600 hover:bg-orange-500 disabled:bg-orange-600/50 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-orange-500/25 flex items-center justify-center"
+                            className="w-full py-4 px-4 bg-orange-600 hover:bg-orange-500 disabled:bg-orange-600/50 text-white font-bold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-orange-500/25 flex items-center justify-center"
                         >
                             {uploading ? (
                                 <TbFidgetSpinner className="animate-spin text-xl" />
@@ -233,9 +216,9 @@ const AddArticleForm = ({
                             )}
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
     );
 };
 
