@@ -58,7 +58,7 @@ const AuthProvider = ({ children }) => {
                 setUser(currentUser);
 
                 // Get JWT token
-                await axios.post(
+                const { data } = await axios.post(
                     `${import.meta.env.VITE_API_URL}/jwt`,
                     {
                         email: currentUser?.email,
@@ -67,8 +67,12 @@ const AuthProvider = ({ children }) => {
                         withCredentials: true,
                     }
                 );
+                if (data.token) {
+                    localStorage.setItem('access-token', data.token);
+                }
             } else {
                 setUser(currentUser);
+                localStorage.removeItem('access-token');
                 await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
                     withCredentials: true,
                 });

@@ -2,22 +2,26 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { GiStarShuriken } from "react-icons/gi";
 import { FiArrowRight, FiLock } from "react-icons/fi";
+import { FaHandsClapping } from "react-icons/fa6";
+import { FaRegComment } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import coverImg from "../assets/article-cover.png";
 
 const Card = ({ article }) => {
-    const { _id, title, image, publisher, tags, description, isPremium } = article;
+    const { _id, title, image, publisher, tags, description, isPremium, likes = [], comments = [] } = article;
     const navigate = useNavigate();
     const { user } = useAuth();
 
     const { data: userData = {} } = useQuery({
         queryKey: ["userData"],
         queryFn: async () => {
+            if (!user?.email) return {};
             const response = await axios(`${import.meta.env.VITE_API_URL}/users/${user?.email}`);
             return response.data;
         },
+        enabled: !!user?.email
     });
     const { userHasSubscription } = userData;
     const isLocked = isPremium && !userHasSubscription;
@@ -26,10 +30,10 @@ const Card = ({ article }) => {
         <div className="group col-span-1 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl overflow-hidden flex flex-col shadow-sm hover:shadow-lg dark:hover:shadow-orange-900/20 hover:border-orange-300 dark:hover:border-orange-500/40 hover:-translate-y-1 transition-all duration-300">
             {/* Image */}
             <div className="relative aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-zinc-800">
-                <img 
-                    className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-500" 
-                    src={image || coverImg} 
-                    alt={title} 
+                <img
+                    className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-500"
+                    src={image || coverImg}
+                    alt={title}
                     onError={(e) => {
                         e.target.onerror = null; // Prevent infinite loops
                         e.target.src = coverImg;
@@ -61,8 +65,19 @@ const Card = ({ article }) => {
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm leading-relaxed line-clamp-2 flex-grow">{description}</p>
 
+                <div className="flex items-center gap-4 my-1">
+                    <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 text-sm">
+                        <FaHandsClapping size={14} />
+                        <span className="font-medium">{likes?.length || 0}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 text-sm">
+                        <FaRegComment size={14} />
+                        <span className="font-medium">{comments?.length || 0}</span>
+                    </div>
+                </div>
+
                 {tags?.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-1.5 mt-auto">
                         {tags.slice(0, 3).map((tag, i) => (
                             <span key={i} className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-zinc-700">
                                 #{tag}
@@ -74,11 +89,10 @@ const Card = ({ article }) => {
                 <button
                     disabled={isLocked}
                     onClick={() => navigate(`/articles/${_id}`)}
-                    className={`mt-1 flex items-center justify-center gap-1.5 w-full py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                        isLocked
+                    className={`mt-1 flex items-center justify-center gap-1.5 w-full py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 ${isLocked
                             ? "bg-gray-100 dark:bg-zinc-800 text-gray-400 dark:text-gray-600 cursor-not-allowed"
                             : "bg-orange-600 hover:bg-orange-500 text-white hover:shadow-lg hover:shadow-orange-500/20"
-                    }`}
+                        }`}
                 >
                     {isLocked ? "Subscribe to Read" : "Read Article"}
                     {!isLocked && <FiArrowRight size={14} />}
@@ -97,6 +111,8 @@ Card.propTypes = {
         publisher: PropTypes.shape({ publisherName: PropTypes.string }),
         tags: PropTypes.arrayOf(PropTypes.string),
         isPremium: PropTypes.bool,
+        likes: PropTypes.array,
+        comments: PropTypes.array,
     }),
 };
 

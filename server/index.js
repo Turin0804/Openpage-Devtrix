@@ -28,8 +28,13 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 const verifyToken = async (req, res, next) => {
-    // console.log(req.cookies);
-    const token = req.cookies?.token;
+    // Check Authorization header first, then fallback to cookie
+    const authHeader = req.headers.authorization;
+    let token = req.cookies?.token;
+
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+        token = authHeader.split(" ")[1];
+    }
 
     if (!token) {
         return res.status(401).send({ message: "unauthorized access" });
@@ -116,7 +121,7 @@ app.post("/jwt", async (req, res) => {
         secure: process.env.NODE_ENV === "production",
         sameSite:
             process.env.NODE_ENV === "production" ? "none" : "strict",
-    }).send({ success: true });
+    }).send({ success: true, token });
 });
 
 // Logout
@@ -389,6 +394,74 @@ app.put("/articles/:id", verifyToken, requireDb, async (req, res) => {
     } catch (error) {
         console.error("Error updating article:", error);
         res.status(500).send("Error updating article");
+    }
+});
+
+// Toggle Like on an article
+app.patch("/articles/:id/like", verifyToken, requireDb, async (req, res) => {
+    const id = req.params.id;
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).send({ message: "Email is required" });
+    }
+
+    const filter = { _id: new ObjectId(id) };
+    const article = await articlesCollection.findOne(filter);
+
+    if (!article) {
+        return res.status(404).send({ message: "Article not found" });
+    }
+
+    const likes = article.likes || [];
+    const hasLiked = likes.includes(email);
+
+    let updateDoc;
+    if (hasLiked) {
+        updateDoc = { $pull: { likes: email } };
+    } else {
+        updateDoc = { $push: { likes: email } };
+    }
+
+    const result = await articlesCollection.updateOne(filter, updateDoc);
+
+    if (result.modifiedCount === 1) {
+        const updatedArticle = await articlesCollection.findOne(filter);
+        res.send({ message: hasLiked ? "Unliked" : "Liked", likes: updatedArticle.likes });
+    } else {
+        res.status(500).send({ message: "Failed to update like status" });
+    }
+});
+
+// Add a comment to an article
+app.post("/articles/:id/comment", verifyToken, requireDb, async (req, res) => {
+    const id = req.params.id;
+    const { text, authorName, authorEmail, authorImage } = req.body;
+
+    if (!text || !authorEmail) {
+        return res.status(400).send({ message: "Comment text and author email are required" });
+    }
+
+    const filter = { _id: new ObjectId(id) };
+    const newComment = {
+        _id: new ObjectId(),
+        text,
+        authorName,
+        authorEmail,
+        authorImage,
+        createdAt: new Date().toISOString()
+    };
+
+    const updateDoc = {
+        $push: { comments: newComment }
+    };
+
+    const result = await articlesCollection.updateOne(filter, updateDoc);
+
+    if (result.modifiedCount === 1) {
+        res.send({ message: "Comment added successfully", comment: newComment });
+    } else {
+        res.status(500).send({ message: "Failed to add comment" });
     }
 });
 
