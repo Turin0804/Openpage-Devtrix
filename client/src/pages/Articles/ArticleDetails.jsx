@@ -6,6 +6,7 @@ import LoadingSpinner from "../../components/common/LoadingSpinner";
 import { useEffect } from "react";
 import Container from "../../components/common/Container";
 import { FiEye, FiStar } from "react-icons/fi";
+import coverImg from "../../assets/article-cover.png";
 
 const ArticleDetails = () => {
     const { id } = useParams();
@@ -37,12 +38,18 @@ const ArticleDetails = () => {
         <div className="bg-white dark:bg-zinc-950 min-h-screen">
             <Helmet><title>{title || "Article"} | OpenPage</title></Helmet>
 
-            {image && (
-                <div className="w-full h-56 sm:h-80 lg:h-96 overflow-hidden relative">
-                    <img className="w-full h-full object-cover" src={image} alt={title} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-zinc-950 via-white/20 dark:via-zinc-950/40 to-transparent" />
-                </div>
-            )}
+            <div className="w-full h-56 sm:h-80 lg:h-96 overflow-hidden relative bg-gray-100 dark:bg-zinc-900">
+                <img 
+                    className="w-full h-full object-cover" 
+                    src={image || coverImg} 
+                    alt={title || "Article cover"} 
+                    onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = coverImg;
+                    }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-zinc-950 via-white/20 dark:via-zinc-950/40 to-transparent" />
+            </div>
 
             <Container>
                 <div className="max-w-3xl mx-auto py-8 sm:py-12">
