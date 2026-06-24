@@ -1,4 +1,4 @@
- import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
@@ -7,7 +7,6 @@ import useAuth from "../../hooks/useAuth";
 
 const MyArticles = () => {
     const { user } = useAuth();
-    // console.log(user);
     const axiosSecure = useAxiosSecure();
 
     const {
@@ -23,12 +22,11 @@ const MyArticles = () => {
             return response.data;
         },
     });
-    // console.log(articles);
 
     if (isLoading) return <LoadingSpinner />;
 
     return (
-        <>
+        <div className="bg-white dark:bg-zinc-950 min-h-screen transition-colors duration-200">
             <Helmet>
                 <title>My Articles | OpenPage</title>
             </Helmet>
@@ -36,60 +34,42 @@ const MyArticles = () => {
             <div className="container mx-auto px-4 sm:px-8">
                 <div className="py-8">
                     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-                        <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                        <div className="inline-block min-w-full shadow-sm dark:shadow-none border border-gray-200 dark:border-white/[0.08] rounded-xl overflow-hidden bg-white dark:bg-zinc-900 transition-colors">
                             <table className="min-w-full leading-normal">
                                 <thead>
                                     <tr>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Serial
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Title
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Details
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Status
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Publisher
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Premium
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Action
-                                        </th>
+                                        {[
+                                            "Serial",
+                                            "Title",
+                                            "Details",
+                                            "Status",
+                                            "Publisher",
+                                            "Premium",
+                                            "Action",
+                                        ].map((head) => (
+                                            <th
+                                                key={head}
+                                                scope="col"
+                                                className="px-5 py-4 bg-gray-50 dark:bg-zinc-800/50 border-b border-gray-200 dark:border-white/[0.08] text-gray-700 dark:text-gray-300 text-left text-xs uppercase tracking-wider font-semibold"
+                                            >
+                                                {head}
+                                            </th>
+                                        ))}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {articles.map((article) => (
+                                    {articles?.length === 0 && (
+                                        <tr>
+                                            <td colSpan="7" className="px-5 py-10 text-center text-gray-500 dark:text-gray-400 text-sm bg-white dark:bg-zinc-900">
+                                                No articles found.
+                                            </td>
+                                        </tr>
+                                    )}
+                                    {articles?.map((article, index) => (
                                         <MyArticlesDataRow
                                             key={article._id}
                                             article={article}
-                                            articles={articles}
+                                            index={index}
                                             refetch={refetch}
                                         />
                                     ))}
@@ -99,7 +79,7 @@ const MyArticles = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 export default MyArticles;

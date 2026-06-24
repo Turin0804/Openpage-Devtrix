@@ -14,26 +14,19 @@ const Card = ({ article }) => {
     const { data: userData = {} } = useQuery({
         queryKey: ["userData"],
         queryFn: async () => {
-            const response = await axios(
-                `${import.meta.env.VITE_API_URL}/users/${user?.email}`
-            );
+            const response = await axios(`${import.meta.env.VITE_API_URL}/users/${user?.email}`);
             return response.data;
         },
     });
-
     const { userHasSubscription } = userData;
     const isLocked = isPremium && !userHasSubscription;
 
     return (
-        <div className="group col-span-1 bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden flex flex-col hover:border-orange-500/40 hover:-translate-y-1 hover:shadow-2xl hover:shadow-orange-900/20 transition-all duration-300">
+        <div className="group col-span-1 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl overflow-hidden flex flex-col shadow-sm hover:shadow-lg dark:hover:shadow-orange-900/20 hover:border-orange-300 dark:hover:border-orange-500/40 hover:-translate-y-1 transition-all duration-300">
             {/* Image */}
-            <div className="relative aspect-[16/10] overflow-hidden bg-zinc-800">
-                <img
-                    className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-500"
-                    src={image}
-                    alt={title}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="relative aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-zinc-800">
+                <img className="object-cover h-full w-full group-hover:scale-105 transition-transform duration-500" src={image} alt={title} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {isPremium && (
                     <div className="absolute top-2.5 right-2.5">
@@ -42,10 +35,9 @@ const Card = ({ article }) => {
                         </span>
                     </div>
                 )}
-
                 {isLocked && (
-                    <div className="absolute inset-0 bg-zinc-950/60 backdrop-blur-[2px] flex items-center justify-center">
-                        <span className="flex items-center gap-1.5 text-xs text-gray-300 font-medium px-3 py-1.5 bg-zinc-800/90 rounded-full border border-zinc-700">
+                    <div className="absolute inset-0 bg-white/60 dark:bg-zinc-950/60 backdrop-blur-[2px] flex items-center justify-center">
+                        <span className="flex items-center gap-1.5 text-xs text-gray-700 dark:text-gray-300 font-medium px-3 py-1.5 bg-white/90 dark:bg-zinc-800/90 rounded-full border border-gray-200 dark:border-zinc-700">
                             <FiLock size={11} /> Premium Only
                         </span>
                     </div>
@@ -54,20 +46,16 @@ const Card = ({ article }) => {
 
             {/* Content */}
             <div className="flex flex-col flex-grow p-4 gap-2.5">
-                <p className="text-[11px] font-semibold text-orange-400 uppercase tracking-wider">
-                    {publisher?.publisherName}
-                </p>
-                <h3 className="font-bold text-sm sm:text-base text-white leading-snug line-clamp-2 group-hover:text-orange-100 transition-colors duration-200">
+                <p className="text-[11px] font-semibold text-orange-500 uppercase tracking-wider">{publisher?.publisherName}</p>
+                <h3 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white leading-snug line-clamp-2 group-hover:text-orange-600 dark:group-hover:text-orange-100 transition-colors duration-200">
                     {title}
                 </h3>
-                <p className="text-gray-500 text-xs sm:text-sm leading-relaxed line-clamp-2 flex-grow">
-                    {description}
-                </p>
+                <p className="text-gray-500 dark:text-gray-500 text-xs sm:text-sm leading-relaxed line-clamp-2 flex-grow">{description}</p>
 
                 {tags?.length > 0 && (
                     <div className="flex flex-wrap gap-1.5">
                         {tags.slice(0, 3).map((tag, i) => (
-                            <span key={i} className="text-[11px] px-2 py-0.5 rounded-full bg-zinc-800 text-gray-400 border border-zinc-700">
+                            <span key={i} className="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-zinc-700">
                                 #{tag}
                             </span>
                         ))}
@@ -79,7 +67,7 @@ const Card = ({ article }) => {
                     onClick={() => navigate(`/articles/${_id}`)}
                     className={`mt-1 flex items-center justify-center gap-1.5 w-full py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 ${
                         isLocked
-                            ? "bg-zinc-800 text-gray-600 cursor-not-allowed"
+                            ? "bg-gray-100 dark:bg-zinc-800 text-gray-400 dark:text-gray-600 cursor-not-allowed"
                             : "bg-orange-600 hover:bg-orange-500 text-white hover:shadow-lg hover:shadow-orange-500/20"
                     }`}
                 >

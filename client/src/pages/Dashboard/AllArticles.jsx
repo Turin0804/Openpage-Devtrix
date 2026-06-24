@@ -23,12 +23,11 @@ const AllArticles = () => {
             return response.data;
         },
     });
-    // console.log(articles);
 
     if (isLoading) return <LoadingSpinner />;
 
     return (
-        <>
+        <div className="bg-white dark:bg-zinc-950 min-h-screen transition-colors duration-200">
             <Helmet>
                 <title>All Articles | Dashboard | OpenPage</title>
             </Helmet>
@@ -36,62 +35,35 @@ const AllArticles = () => {
             <div className="container mx-auto px-4 sm:px-8">
                 <div className="py-8">
                     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-                        <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                        <div className="inline-block min-w-full shadow-sm dark:shadow-none border border-gray-200 dark:border-white/[0.08] rounded-xl overflow-hidden bg-white dark:bg-zinc-900 transition-colors">
                             <table className="min-w-full leading-normal">
                                 <thead>
                                     <tr>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Title
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Author Photo
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Author Name
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Author Email
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Posted Date
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Status
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Publisher
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                        >
-                                            Action
-                                        </th>
+                                        {[
+                                            "Title",
+                                            "Author Photo",
+                                            "Author Name",
+                                            "Author Email",
+                                            "Posted Date",
+                                            "Status",
+                                            "Publisher",
+                                            "Action",
+                                            "Decline",
+                                            "Premium",
+                                            "Delete",
+                                        ].map((head) => (
+                                            <th
+                                                key={head}
+                                                scope="col"
+                                                className="px-5 py-4 bg-gray-50 dark:bg-zinc-800/50 border-b border-gray-200 dark:border-white/[0.08] text-gray-700 dark:text-gray-300 text-left text-xs uppercase tracking-wider font-semibold"
+                                            >
+                                                {head}
+                                            </th>
+                                        ))}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {articles.map((article) => (
+                                    {articles?.map((article) => (
                                         <AllArticlesDataRow
                                             key={article._id}
                                             article={article}
@@ -104,7 +76,7 @@ const AllArticles = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
