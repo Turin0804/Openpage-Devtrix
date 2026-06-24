@@ -37,7 +37,7 @@ const Publishers = () => {
                             <div className="p-4">
                                 <h3 className="text-gray-900 dark:text-white font-semibold text-sm truncate">{publisher.publisherName}</h3>
                                 {publisher.description && (
-                                    <p className="text-gray-500 text-xs mt-1 line-clamp-2">{publisher.description}</p>
+                                    <p className="text-gray-500 dark:text-gray-400 text-xs mt-1 line-clamp-2">{publisher.description}</p>
                                 )}
                                 <div className="flex items-center justify-between mt-3">
                                     {publisher.website && (
