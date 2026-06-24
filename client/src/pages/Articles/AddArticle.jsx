@@ -6,6 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { uploadImage } from "../../api/utils";
 import AddArticleForm from "../../components/Form/AddArticleForm";
+import Container from "../../components/common/Container";
 
 const AddArticle = () => {
     const { user } = useAuth();
@@ -16,9 +17,14 @@ const AddArticle = () => {
     const [imageUpload, setImageUpload] = useState({ name: "Choose File" });
     const [uploading, setUploading] = useState(false);
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        if (tags.length === 0) {
+            toast.error("Please select at least one tag.");
+            return;
+        }
+        
         setUploading(true);
 
         const form = e.target;
@@ -53,35 +59,37 @@ const AddArticle = () => {
         // Save article data to the database
         try {
             await axiosSecure.post("/articles", article);
-            toast.success("article added successfully!");
+            toast.success("Article added successfully!");
             navigate("/my-articles");
         } catch (err) {
             console.log(err);
+            toast.error("Failed to add article.");
         } finally {
             setUploading(false);
         }
     };
 
     return (
-        <div>
+        <div className="bg-white dark:bg-zinc-950 min-h-[calc(100vh-64px)] transition-colors duration-200">
             <Helmet>
                 <title>Add Article | OpenPage</title>
             </Helmet>
 
-            {/* Form */}
-            <AddArticleForm
-                handleSubmit={handleSubmit}
-                imageUpload={imageUpload}
-                setImageUpload={setImageUpload}
-                uploading={uploading}
-                tags={tags}
-                setTags={setTags}
-                publisher={publisher}
-                setPublisher={setPublisher}
-            />
+            <Container>
+                {/* Form */}
+                <AddArticleForm
+                    handleSubmit={handleSubmit}
+                    imageUpload={imageUpload}
+                    setImageUpload={setImageUpload}
+                    uploading={uploading}
+                    tags={tags}
+                    setTags={setTags}
+                    publisher={publisher}
+                    setPublisher={setPublisher}
+                />
+            </Container>
         </div>
     );
 };
 
 export default AddArticle;
-
