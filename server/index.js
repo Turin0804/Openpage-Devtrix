@@ -194,6 +194,12 @@ app.patch("/users/role/:email", verifyToken, requireDb, async (req, res) => {
             role,
         },
     };
+
+    if (role === "admin") {
+        updateDoc.$set.userHasSubscription = true;
+        updateDoc.$set.premiumTaken = "365 days";
+    }
+
     const result = await usersCollection.updateOne(filter, updateDoc);
     res.send(result);
 });
