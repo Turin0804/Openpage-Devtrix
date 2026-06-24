@@ -95,14 +95,14 @@ const Navbar = () => {
                         >
                             {/* Hamburger is visible on mobile, hidden on desktop where only the avatar might trigger the menu */}
                             <AiOutlineMenu className="text-gray-500 dark:text-gray-400 text-sm ml-1 lg:hidden" />
-                            <Link to="/profile" onClick={(e) => e.stopPropagation()}>
+                            <div className="w-8 h-8 overflow-hidden rounded-full ring-2 ring-transparent hover:ring-orange-400 transition-all duration-300">
                                 <img
-                                    className="w-8 h-8 object-cover rounded-full ring-2 ring-transparent hover:ring-orange-400 transition-all duration-300"
+                                    className="w-full h-full object-cover"
                                     referrerPolicy="no-referrer"
                                     src={user && user.photoURL ? user.photoURL : avatarImg}
                                     alt="profile"
                                 />
-                            </Link>
+                            </div>
                         </div>
 
                         {/* Dropdown Menu */}

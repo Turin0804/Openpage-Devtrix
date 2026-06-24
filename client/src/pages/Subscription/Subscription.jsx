@@ -35,7 +35,7 @@ const Subscription = () => {
             </Helmet>
 
             {/* Ambient Background Glow */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-orange-500/10 dark:bg-orange-500/5 blur-[120px] pointer-events-none rounded-full"></div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-orange-500/10 dark:bg-orange-500/20 blur-[120px] pointer-events-none rounded-full"></div>
 
             {/* Header Section */}
             <div className="relative pt-24 pb-16 text-center z-10">
@@ -56,8 +56,8 @@ const Subscription = () => {
                             onClick={() => setSubscriptionPeriod(sub.subscriptionPeriod)}
                             className={`relative p-8 rounded-[2rem] border-2 transition-all duration-300 cursor-pointer flex flex-col ${
                                 subscriptionPeriod === sub.subscriptionPeriod
-                                ? "border-orange-500 bg-orange-50/80 dark:bg-orange-500/10 shadow-2xl shadow-orange-500/20 scale-105 z-20"
-                                : "border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 hover:border-orange-300 dark:hover:border-orange-500/40 hover:shadow-xl hover:scale-[1.02] z-10"
+                                ? "border-orange-500 bg-orange-50/80 dark:bg-orange-500/20 shadow-2xl shadow-orange-500/40 scale-105 z-20"
+                                : "border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 hover:border-orange-300 dark:hover:border-orange-500/50 hover:shadow-xl hover:scale-[1.02] z-10"
                             }`}
                         >
                             {idx === 1 && (
