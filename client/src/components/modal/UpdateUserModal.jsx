@@ -93,11 +93,10 @@ const UpdateUserModal = ({ setIsOpen, isOpen, role, updateRole }) => {
                                                                 }) => (
                                                                     <>
                                                                         <span
-                                                                            className={`block truncate ${
-                                                                                selected
+                                                                            className={`block truncate ${selected
                                                                                     ? "font-medium"
                                                                                     : "font-normal"
-                                                                            }`}
+                                                                                }`}
                                                                         >
                                                                             {
                                                                                 role

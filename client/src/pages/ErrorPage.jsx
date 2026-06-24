@@ -1,67 +1,36 @@
 import { useNavigate } from "react-router-dom";
-import Button from "../components/common/Button";
+import { FiHome, FiArrowLeft } from "react-icons/fi";
 
 const ErrorPage = () => {
     const navigate = useNavigate();
-
     return (
-        <section className="bg-white ">
-            <div className="container flex items-center min-h-screen px-6 py-12 mx-auto">
-                <div className="flex flex-col items-center max-w-sm mx-auto text-center">
-                    <p className="p-3 text-sm font-medium text-orange-600 rounded-full bg-blue-50 ">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth="2"
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-                            />
-                        </svg>
-                    </p>
-                    <h1 className="mt-3 text-2xl font-semibold text-gray-800  md:text-3xl">
-                        Something Went Wrong!
-                    </h1>
-                    <p className="mt-4 text-gray-500 ">
-                        Here are some helpful links:
-                    </p>
+        <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 flex items-center justify-center px-4">
+            <div className="text-center max-w-md">
+                <p className="text-8xl sm:text-9xl font-bold text-gray-200 dark:text-zinc-800 select-none">404</p>
 
-                    <div className="flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto">
-                        <button
-                            onClick={() => navigate(-1)}
-                            className="flex items-center justify-center w-1/2 px-5 py-1 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto   hover:bg-gray-100 "
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-5 h-5 rtl:rotate-180 text-orange-600"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                                />
-                            </svg>
+                <div className="w-16 h-16 mx-auto rounded-2xl bg-orange-50 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/20 flex items-center justify-center mb-6 -mt-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-7 h-7 text-orange-500 dark:text-orange-400">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                    </svg>
+                </div>
 
-                            <span>Go back</span>
-                        </button>
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3">Page Not Found</h1>
+                <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                    The page you&apos;re looking for doesn&apos;t exist or has been moved.
+                </p>
 
-                        <Button
-                            label={"Take Me Home"}
-                            onClick={() => navigate("/")}
-                        />
-                    </div>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button onClick={() => navigate(-1)}
+                        className="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 border border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-xl transition-all duration-200 w-full sm:w-auto justify-center shadow-sm">
+                        <FiArrowLeft size={15} /> Go back
+                    </button>
+                    <button onClick={() => navigate("/")}
+                        className="flex items-center gap-2 px-5 py-2.5 bg-orange-600 hover:bg-orange-500 text-white text-sm font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-orange-500/25 w-full sm:w-auto justify-center">
+                        <FiHome size={15} /> Take me home
+                    </button>
                 </div>
             </div>
-        </section>
+        </div>
     );
 };
 

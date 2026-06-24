@@ -6,8 +6,8 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { saveUser } from "../../api/utils";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
-import Navbar from "../../components/common/Navbar";
 import { useState } from "react";
+import { FiMail, FiLock } from "react-icons/fi";
 
 const Login = () => {
     const { signIn, signInWithGoogle, loading, user } = useAuth();
@@ -19,159 +19,89 @@ const Login = () => {
     if (loading) return <LoadingSpinner />;
     if (user) return <Navigate to={from} replace={true} />;
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
-
-    // form submit handler
     const handleSubmit = async (event) => {
         event.preventDefault();
         const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-
         try {
-            //User Login
-            await signIn(email, password);
+            await signIn(form.email.value, form.password.value);
             navigate(from, { replace: true });
             toast.success("Login Successful");
-        } catch (err) {
-            console.log(err);
-            toast.error(err?.message);
-        }
+        } catch (err) { toast.error(err?.message); }
     };
 
-    // Handle Google Signin
     const handleGoogleSignIn = async () => {
         try {
-            //User Registration using google
             const data = await signInWithGoogle();
-            // Save user in database if not exists
             await saveUser(data?.user);
-
             navigate(from, { replace: true });
             toast.success("Login Successful");
-        } catch (err) {
-            console.log(err);
-            toast.error(err?.message);
-        }
+        } catch (err) { toast.error(err?.message); }
     };
+
     return (
-        <>
-            <Navbar />
-            <div className="flex justify-center items-center min-h-screen bg-white py-12">
-                <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
-                    <div className="mb-8 text-center">
-                        <h1 className="my-3 text-4xl font-bold">Log In</h1>
-                        <p className="text-sm text-gray-400">
-                            Sign in to access your account
-                        </p>
-                    </div>
-                    <form
-                        onSubmit={handleSubmit}
-                        noValidate=""
-                        action=""
-                        className="space-y-6 ng-untouched ng-pristine ng-valid"
-                    >
-                        <div className="space-y-4">
-                            <div>
-                                <label
-                                    htmlFor="email"
-                                    className="block mb-2 text-sm"
-                                >
-                                    Email address
-                                </label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    id="email"
-                                    required
-                                    placeholder="Enter Your Email Here"
-                                    className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-orange-500 bg-gray-200 text-gray-900"
-                                    data-temp-mail-org="0"
-                                />
-                            </div>
-                            <div>
-                                <div className="flex justify-between">
-                                    <label
-                                        htmlFor="password"
-                                        className="text-sm mb-2"
-                                    >
-                                        Password
-                                    </label>
-                                </div>
-                                <div className="relative">
-                                    <input
-                                        type={
-                                            showPassword ? "text" : "password"
-                                        }
-                                        name="password"
-                                        autoComplete="new-password"
-                                        id="password"
-                                        required
-                                        placeholder="*******"
-                                        className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-orange-500 bg-gray-200 text-gray-900"
-                                    />
-                                    <div
-                                        className="absolute inset-y-5 right-0 pr-3 flex items-center cursor-pointer"
-                                        onClick={togglePasswordVisibility}
-                                    >
-                                        {showPassword ? (
-                                            <AiFillEyeInvisible size={24} />
-                                        ) : (
-                                            <AiFillEye size={24} />
-                                        )}
-                                    </div>
-                                </div>
+        <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 flex items-center justify-center px-4 py-12">
+            <div className="w-full max-w-md">
+                <div className="text-center mb-8">
+                    <h1 className="font-rye text-3xl font-bold text-gray-900 dark:text-white mb-1">OpenPage</h1>
+                    <p className="text-gray-500 text-sm">Sign in to your account</p>
+                </div>
+
+                <div className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-white/[0.08] rounded-2xl p-7 sm:p-8 shadow-sm dark:shadow-none">
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Welcome back</h2>
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1.5">Email address</label>
+                            <div className="relative">
+                                <FiMail size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+                                <input type="email" name="email" id="email" required placeholder="you@example.com"
+                                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 rounded-xl text-gray-900 dark:text-white text-sm placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:border-orange-400 dark:focus:border-orange-500/60 focus:ring-1 focus:ring-orange-300 dark:focus:ring-orange-500/30 transition-all duration-200" />
                             </div>
                         </div>
 
                         <div>
-                            <button
-                                type="submit"
-                                className="bg-orange-500 w-full rounded-md py-3 text-white"
-                            >
-                                {loading ? (
-                                    <TbFidgetSpinner className="animate-spin m-auto" />
-                                ) : (
-                                    "Continue"
-                                )}
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1.5">Password</label>
+                            <div className="relative">
+                                <FiLock size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+                                <input type={showPassword ? "text" : "password"} name="password" id="password" required placeholder="••••••••"
+                                    className="w-full pl-10 pr-11 py-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 rounded-xl text-gray-900 dark:text-white text-sm placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:border-orange-400 dark:focus:border-orange-500/60 focus:ring-1 focus:ring-orange-300 dark:focus:ring-orange-500/30 transition-all duration-200" />
+                                <button type="button" onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200">
+                                    {showPassword ? <AiFillEyeInvisible size={18} /> : <AiFillEye size={18} />}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-end">
+                            <button type="button" className="text-xs text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-200">
+                                Forgot password?
                             </button>
                         </div>
-                    </form>
-                    <div className="space-y-1">
-                        <button className="text-xs hover:underline hover:text-orange-500 text-gray-400">
-                            Forgot password?
-                        </button>
-                    </div>
-                    <div className="flex items-center pt-4 space-x-1">
-                        <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
-                        <p className="px-3 text-sm dark:text-gray-400">
-                            Login with social accounts
-                        </p>
-                        <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
-                    </div>
-                    <div
-                        onClick={handleGoogleSignIn}
-                        className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
-                    >
-                        <FcGoogle size={32} />
 
-                        <p>Continue with Google</p>
+                        <button type="submit"
+                            className="w-full py-2.5 px-4 bg-orange-600 hover:bg-orange-500 text-white font-semibold text-sm rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-orange-500/25">
+                            {loading ? <TbFidgetSpinner className="animate-spin mx-auto" /> : "Sign In"}
+                        </button>
+                    </form>
+
+                    <div className="flex items-center gap-3 my-5">
+                        <div className="flex-1 h-px bg-gray-200 dark:bg-white/[0.08]" />
+                        <p className="text-gray-400 text-xs">or continue with</p>
+                        <div className="flex-1 h-px bg-gray-200 dark:bg-white/[0.08]" />
                     </div>
-                    <p className="px-6 text-sm text-center text-gray-400">
-                        Don&apos;t have an account yet?{" "}
-                        <Link
-                            to="/signup"
-                            className="hover:underline hover:text-orange-500 text-gray-600"
-                        >
-                            Sign up
-                        </Link>
-                        .
+
+                    <button onClick={handleGoogleSignIn}
+                        className="w-full flex items-center justify-center gap-3 py-2.5 px-4 bg-gray-50 hover:bg-gray-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 border border-gray-200 dark:border-zinc-700 hover:border-gray-300 dark:hover:border-zinc-600 text-gray-700 dark:text-white text-sm font-medium rounded-xl transition-all duration-200">
+                        <FcGoogle size={20} /> Continue with Google
+                    </button>
+
+                    <p className="text-center text-gray-500 text-sm mt-5">
+                        No account yet?{" "}
+                        <Link to="/signup" className="text-orange-500 hover:text-orange-600 dark:text-orange-400 dark:hover:text-orange-300 font-medium transition-colors duration-200">Sign up</Link>
                     </p>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
