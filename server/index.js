@@ -266,7 +266,7 @@ app.get("/latest-articles", requireDb, async (req, res) => {
     const articles = await articlesCollection
         .find()
         .sort({ timestamp: -1 })
-        .limit(4)
+        .limit(8)
         .toArray();
     res.send(articles);
 });
@@ -283,13 +283,13 @@ app.get("/approved-articles", requireDb, async (req, res) => {
     res.send(articles);
 });
 
-// GET 6 trending articles
+// GET 8 trending articles
 app.get("/trending-articles", requireDb, async (req, res) => {
     // sort by view count in descending order
     const articles = await articlesCollection
         .find()
         .sort({ viewCount: -1 })
-        .limit(6)
+        .limit(8)
         .toArray();
     res.send(articles);
 });
