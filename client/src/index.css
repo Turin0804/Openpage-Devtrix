@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Rye&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Light theme defaults ─── */
+:root,
+[data-theme="light"] {
+    --bg:        #fafaf8;
+    --surface:   #ffffff;
+    --card:      #ffffff;
+    --border:    #e5e7eb;
+    --text:      #111827;
+    --muted:     #6b7280;
+    --subtle:    #9ca3af;
+}
+
+/* ─── Dark theme overrides ─── */
+[data-theme="dark"] {
+    --bg:        #09090b;
+    --surface:   #18181b;
+    --card:      #1c1c1f;
+    --border:    #27272a;
+    --text:      #f9fafb;
+    --muted:     #9ca3af;
+    --subtle:    #6b7280;
+}
+
+html {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: #E7700D; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #c45e09; }
+
+.custom-first-letter::first-letter {
+    font-size: 44px;
+    font-weight: 500;
+    float: left;
+    margin: 5px;
+}
+
+/* Section separator gradient */
+.gradient-line {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #E7700D, transparent);
+}
+
+/* Animated gradient text */
+@keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+}
+.gradient-text {
+    background: linear-gradient(90deg, #E7700D, #F59E0B, #E7700D);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+}
