@@ -20,8 +20,13 @@ const Footer = () => {
                             Your premium destination for news, analysis, and exclusive editorial content. Creating a space where storytellers and readers connect.
                         </p>
                         <div className="flex gap-4">
-                            {[FaTwitter, FaGithub, FaLinkedin, FaRss].map((Icon, i) => (
-                                <a key={i} href="#" className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-orange-50 hover:text-orange-500 dark:hover:bg-orange-500/10 dark:hover:text-orange-400 transition-all duration-300">
+                            {[
+                                { Icon: FaTwitter, href: "#" },
+                                { Icon: FaGithub, href: "https://github.com/Turin0804/Openpage-Devtrix" },
+                                { Icon: FaLinkedin, href: "#" },
+                                { Icon: FaRss, href: "#" },
+                            ].map(({ Icon, href }, i) => (
+                                <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-orange-50 hover:text-orange-500 dark:hover:bg-orange-500/10 dark:hover:text-orange-400 transition-all duration-300">
                                     <Icon size={16} />
                                 </a>
                             ))}
@@ -54,7 +59,13 @@ const Footer = () => {
                     <div className="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-500">
                         <span>Built with</span>
                         <span className="text-red-500 animate-pulse">❤️</span>
-                        <span>for storytellers</span>
+                        <span>for storytellers &mdash; by</span>
+                        <span
+                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold tracking-widest uppercase ring-1 ring-orange-400/50 dark:ring-orange-500/40 shadow-[0_0_10px_rgba(249,115,22,0.3)] dark:shadow-[0_0_14px_rgba(249,115,22,0.25)]"
+                            style={{ background: "linear-gradient(90deg,#f97316,#f59e0b)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                        >
+                            DevTrix
+                        </span>
                     </div>
                 </div>
             </div>
